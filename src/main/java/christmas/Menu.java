@@ -7,7 +7,7 @@ public class Menu {
     private final Map<String, Product> products;
 
     public Menu() {
-        products = new HashMap<>();
+        this.products = new HashMap<>();
         initMenu();
     }
 
@@ -17,7 +17,7 @@ public class Menu {
         });
     }
 
-    private Product getProduct(String name) {
+    private Product getProduct(final String name) {
         Product product = products.get(name);
         if (product == null) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
@@ -25,15 +25,15 @@ public class Menu {
         return product;
     }
 
-    public void validateNameInMenu(String name) {
+    public void validateNameInMenu(final String name) {
         getProduct(name);
     }
 
-    public Category getCategory(String name) {
+    public final Category getCategory(final String name) {
         return getProduct(name).category();
     }
 
-    public int getPrice(String name) {
+    public final int getPrice(final String name) {
         return getProduct(name).price();
     }
 }
