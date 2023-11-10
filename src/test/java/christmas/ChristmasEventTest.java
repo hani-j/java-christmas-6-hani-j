@@ -22,4 +22,18 @@ public class ChristmasEventTest {
         // then
         assertTrue(isDDay);
     }
+
+    @DisplayName("평일 날짜가 들어오면 평일 할인 여부가 true 이다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 10, 14, 25})
+    public void isWeekdayDiscount(int day) {
+        // given
+        ChristmasEvent christmasEvent = new ChristmasEvent();
+
+        // when
+        boolean isWeekday = christmasEvent.isWeekdayDiscount(day);
+
+        // then
+        assertTrue(isWeekday);
+    }
 }
