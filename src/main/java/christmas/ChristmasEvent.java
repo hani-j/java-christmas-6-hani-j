@@ -6,6 +6,9 @@ import static christmas.DayType.WEEKEND;
 import static christmas.DayType.getDayType;
 
 public class ChristmasEvent {
+    public boolean isEventTarget(int amount) {
+        return amount >= 10_000;
+    }
 
     public boolean isDDayDiscount(int day) {
         return day <= 25;
