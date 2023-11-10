@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -76,5 +77,19 @@ public class MenuTest {
 
         // then
         assertEquals(BEVERAGE, category);
+    }
+
+    @DisplayName("메뉴를 입력하면 가격을 반환한다.")
+    @Test
+    public void getPrice() {
+        // given
+        String name = "제로콜라";
+
+        // when
+        int price = menu.getPrice(name);
+
+        // then
+        int expected = 3000;
+        assertEquals(expected, price);
     }
 }
