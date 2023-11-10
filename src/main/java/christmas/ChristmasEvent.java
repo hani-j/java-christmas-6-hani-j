@@ -1,5 +1,6 @@
 package christmas;
 
+import static christmas.DayType.SPECIAL_DAY;
 import static christmas.DayType.WEEKDAY;
 import static christmas.DayType.WEEKEND;
 import static christmas.DayType.getDayType;
@@ -16,5 +17,9 @@ public class ChristmasEvent {
 
     public boolean isWeekendDiscount(int day) {
         return getDayType(day) == WEEKEND;
+    }
+
+    public boolean isSpecialDayDiscount(int day) {
+        return getDayType(day) == SPECIAL_DAY;
     }
 }
