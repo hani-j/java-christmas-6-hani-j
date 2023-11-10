@@ -1,13 +1,18 @@
 package christmas;
 
-import java.util.EnumMap;
-import java.util.List;
+import static christmas.Category.APPETIZER;
+import static christmas.Category.BEVERAGE;
+import static christmas.Category.DESSERT;
+import static christmas.Category.MAIN;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Menu {
-    private final EnumMap<Category, List<Product>> products;
+    private final Map<String, Product> products;
 
     public Menu() {
-        products = new EnumMap<>(Category.class);
+        products = new HashMap<>();
         initMenu();
     }
 
@@ -19,43 +24,42 @@ public class Menu {
     }
 
     private void initAppetizer() {
-        products.put(
-                Category.APPETIZER,
-                List.of(new Product("양송이수프", 6000),
-                        new Product("타파스", 5500),
-                        new Product("시저샐러드", 8000)));
+        products.put("양송이수프", new Product(APPETIZER, 6000));
+        products.put("타파스", new Product(APPETIZER, 5500));
+        products.put("시저샐러드", new Product(APPETIZER, 8000));
     }
 
     private void initMain() {
-        products.put(
-                Category.MAIN,
-                List.of(new Product("티본스테이크", 55_000),
-                        new Product("바비큐립", 54_000),
-                        new Product("해산물파스타", 35_000),
-                        new Product("크리스마스파스타", 25_000)));
+        products.put("티본스테이크", new Product(MAIN, 55_000));
+        products.put("바비큐립", new Product(MAIN, 54_000));
+        products.put("해산물파스타", new Product(MAIN, 35_000));
+        products.put("크리스마스파스타", new Product(MAIN, 25_000));
     }
 
     private void initDessert() {
-        products.put(
-                Category.DESSERT,
-                List.of(new Product("초코케이크", 15_000),
-                        new Product("아이스크림", 5_000)));
+        products.put("초코케이크", new Product(DESSERT, 15_000));
+        products.put("아이스크림", new Product(DESSERT, 5_000));
     }
 
     private void initBeverage() {
-        products.put(
-                Category.BEVERAGE,
-                List.of(new Product("제로콜라", 3_000),
-                        new Product("레드와인", 60_000),
-                        new Product("샴페인", 25_000)));
+        products.put("제로콜라", new Product(BEVERAGE, 3_000));
+        products.put("레드와인", new Product(BEVERAGE, 60_000));
+        products.put("샴페인", new Product(BEVERAGE, 25_000));
     }
 
     public void validateNameInMenu(String name) {
-        boolean isNameInMenu = products.values().stream()
-                .anyMatch(product ->
-                        product.stream().anyMatch(food -> food.isSameName(name)));
-        if (isNameInMenu == false) {
+        Product product = products.get(name);
+        if (product == null) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
+
+    public Category getCategory(String name) {
+        Product product = products.get(name);
+        if (product == null) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+        return product.category();
+    }
+
 }
