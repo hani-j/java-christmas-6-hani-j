@@ -1,16 +1,33 @@
 package christmas;
 
-public enum DayType {
-    WEEKDAY(2023, false),
-    WEEKEND(2023, false),
-    SPECIAL_DAY(2023, true);
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
+public enum DayType {
+    WEEKDAY(new HashSet<>(Set.of(4,5,6,7,11,12,13,14,18,19,20,21,26,27,28)), 2023, false),
+    WEEKEND(new HashSet<>(Set.of(1,2,8,9,15,16,22,23,29,30)),2023, false),
+    SPECIAL_DAY(new HashSet<>(Set.of(3,10,17,24,25,31)),2023, true);
+
+    private final Set<Integer> days;
     private final int discountPrice;
     private final boolean hasSpecial;
 
-    DayType(final int discountPrice, final boolean hasSpecial) {
+    DayType(final Set<Integer> days, final int discountPrice, final boolean hasSpecial) {
+        this.days = days;
         this.discountPrice = discountPrice;
         this.hasSpecial = hasSpecial;
+    }
+
+    public static DayType getDayType(int day) {
+        return Arrays.stream(DayType.values())
+                .filter(dayType -> dayType.getDays().contains(day))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 날짜입니다."));
+    }
+
+    private Set<Integer> getDays() {
+        return days;
     }
 
     public int getDiscountPrice() {
