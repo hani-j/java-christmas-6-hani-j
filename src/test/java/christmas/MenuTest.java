@@ -1,6 +1,8 @@
 package christmas;
 
 import static christmas.Category.APPETIZER;
+import static christmas.Category.BEVERAGE;
+import static christmas.Category.DESSERT;
 import static christmas.Category.MAIN;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -35,7 +37,7 @@ public class MenuTest {
     @DisplayName("에피타이저 메뉴를 입력하면 APPETIZER Enum 을 반환한다.")
     @ParameterizedTest
     @ValueSource(strings = {"양송이수프", "타파스", "시저샐러드"})
-    public void getCategory(String name) {
+    public void getAppetizerCategory(String name) {
         // when
         Category category = menu.getCategory(name);
 
@@ -46,7 +48,7 @@ public class MenuTest {
     @DisplayName("메인 메뉴를 입력하면 MAIN Enum 을 반환한다.")
     @ParameterizedTest
     @ValueSource(strings = {"티본스테이크", "바비큐립", "해산물파스타", "크리스마스파스타"})
-    public void getCategory(String name) {
+    public void getMainCategory(String name) {
         // when
         Category category = menu.getCategory(name);
 
@@ -57,7 +59,7 @@ public class MenuTest {
     @DisplayName("디저트 메뉴를 입력하면 DESSERT Enum 을 반환한다.")
     @ParameterizedTest
     @ValueSource(strings = {"초코케이크", "초코케이크"})
-    public void getCategory(String name) {
+    public void getDessertCategory(String name) {
         // when
         Category category = menu.getCategory(name);
 
@@ -68,7 +70,7 @@ public class MenuTest {
     @DisplayName("음료 메뉴를 입력하면 BEVERAGE Enum 을 반환한다.")
     @ParameterizedTest
     @ValueSource(strings = {"제로콜라", "레드와인", "샴페인"})
-    public void getCategory(String name) {
+    public void getBeverageCategory(String name) {
         // when
         Category category = menu.getCategory(name);
 
