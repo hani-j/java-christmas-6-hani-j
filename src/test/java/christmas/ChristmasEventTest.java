@@ -1,5 +1,6 @@
 package christmas;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,20 @@ public class ChristmasEventTest {
 
         // then
         assertTrue(isDDay);
+    }
+
+    @DisplayName("25 일 이후의 숫자가 들어오면 크리스마스 d-day 할인 여부가 false 이다.")
+    @ParameterizedTest
+    @ValueSource(ints = {26, 27, 28, 29, 30, 31})
+    public void isNotDDayDiscount(int day) {
+        // given
+        ChristmasEvent christmasEvent = new ChristmasEvent();
+
+        // when
+        boolean isNotDDay = christmasEvent.isDDayDiscount(day);
+
+        // then
+        assertFalse(isNotDDay);
     }
 
     @DisplayName("평일 날짜가 들어오면 평일 할인 여부가 true 이다.")
