@@ -1,6 +1,7 @@
 package christmas;
 
 import static christmas.DayType.WEEKDAY;
+import static christmas.DayType.WEEKEND;
 import static christmas.DayType.getDayType;
 
 public class ChristmasEvent {
@@ -11,5 +12,9 @@ public class ChristmasEvent {
 
     public boolean isWeekdayDiscount(int day) {
         return getDayType(day) == WEEKDAY;
+    }
+
+    public boolean isWeekendDiscount(int day) {
+        return getDayType(day) == WEEKEND;
     }
 }
