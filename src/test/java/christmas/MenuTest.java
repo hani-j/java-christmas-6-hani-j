@@ -4,6 +4,7 @@ import static christmas.Category.APPETIZER;
 import static christmas.Category.BEVERAGE;
 import static christmas.Category.DESSERT;
 import static christmas.Category.MAIN;
+import static christmas.MenuItem.ZERO_COKE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -89,7 +90,6 @@ public class MenuTest {
         int price = menu.getPrice(name);
 
         // then
-        int expected = 3000;
-        assertEquals(expected, price);
+        assertEquals(ZERO_COKE.getPrice(), price);
     }
 }
