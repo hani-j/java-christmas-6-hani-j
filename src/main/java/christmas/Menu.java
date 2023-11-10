@@ -47,19 +47,23 @@ public class Menu {
         products.put("샴페인", new Product(BEVERAGE, 25_000));
     }
 
-    public void validateNameInMenu(String name) {
+    private Product getProduct(String name) {
         Product product = products.get(name);
         if (product == null) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
+        return product;
+    }
+
+    public void validateNameInMenu(String name) {
+        getProduct(name);
     }
 
     public Category getCategory(String name) {
-        Product product = products.get(name);
-        if (product == null) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-        }
-        return product.category();
+        return getProduct(name).category();
     }
 
+    public int getPrice(String name) {
+        return getProduct(name).price();
+    }
 }
