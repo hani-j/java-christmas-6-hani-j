@@ -81,7 +81,7 @@ public class ChristmasEventTest {
     @DisplayName("특별일 날짜가 들어오면 특별 할인 여부가 true 이다.")
     @ParameterizedTest
     @ValueSource(ints = {3, 10, 17, 24, 25, 31})
-    public void isNotSpecialDayDiscount(int day) {
+    public void isSpecialDayDiscount(int day) {
         // given & when
         boolean isWeekend = christmasEvent.isSpecialDayDiscount(day);
 
