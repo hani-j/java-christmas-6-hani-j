@@ -10,14 +10,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class ChristmasEventTest {
 
+    ChristmasEvent christmasEvent = new ChristmasEvent();
+
+
     @DisplayName("25 일 이하의 숫자가 들어오면 크리스마스 d-day 할인 여부가 true 이다.")
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 10, 14, 25})
     public void isDDayDiscount(int day) {
-        // given
-        ChristmasEvent christmasEvent = new ChristmasEvent();
-
-        // when
+        // given & when
         boolean isDDay = christmasEvent.isDDayDiscount(day);
 
         // then
@@ -28,10 +28,7 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {26, 27, 28, 29, 30, 31})
     public void isNotDDayDiscount(int day) {
-        // given
-        ChristmasEvent christmasEvent = new ChristmasEvent();
-
-        // when
+        // given & when
         boolean isNotDDay = christmasEvent.isDDayDiscount(day);
 
         // then
@@ -42,10 +39,7 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {4, 5, 6, 7, 11, 18, 26, 28})
     public void isWeekdayDiscount(int day) {
-        // given
-        ChristmasEvent christmasEvent = new ChristmasEvent();
-
-        // when
+        // given & when
         boolean isWeekday = christmasEvent.isWeekdayDiscount(day);
 
         // then
@@ -56,10 +50,7 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {1,2,8,9,15,16, 22,23,29,30})
     public void isNotWeekdayDiscount(int day) {
-        // given
-        ChristmasEvent christmasEvent = new ChristmasEvent();
-
-        // when
+        // given & when
         boolean isNotWeekday = christmasEvent.isWeekdayDiscount(day);
 
         // then
