@@ -16,7 +16,7 @@ public class ChristmasEventTest {
     @ValueSource(ints = {10_000, 20_000, 100_000, 200_000})
     public void isEventTarget(int amount) {
         // given & when
-        boolean isEventTarget = christmasEvent.isEventTarget(day);
+        boolean isEventTarget = christmasEvent.isEventTarget(amount);
 
         // then
         assertTrue(isEventTarget);
@@ -25,12 +25,12 @@ public class ChristmasEventTest {
     @DisplayName("총 주문 금액이 10,000원 미만이면 이벤트 대상 여부가 false 이다.")
     @ParameterizedTest
     @ValueSource(ints = {9_999, 1000, 2000, 5000})
-    public void isEventTarget(int amount) {
+    public void isNotEventTarget(int amount) {
         // given & when
-        boolean isNotEventTarget = christmasEvent.isEventTarget(day);
+        boolean isNotEventTarget = christmasEvent.isEventTarget(amount);
 
         // then
-        assertTrue(isNotEventTarget);
+        assertFalse(isNotEventTarget);
     }
 
     @DisplayName("25 일 이하의 숫자가 들어오면 크리스마스 d-day 할인 여부가 true 이다.")
