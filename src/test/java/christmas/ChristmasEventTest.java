@@ -99,4 +99,26 @@ public class ChristmasEventTest {
         // then
         assertFalse(isNotWeekend);
     }
+
+    @DisplayName("할인 전 총 금액이 12만원 이상이면 증정 이벤트 여부가 true 이다.")
+    @ParameterizedTest
+    @ValueSource(ints = {120_000, 130_000, 140_000, 150_000})
+    public void isGiveawayTarget(int amount) {
+        // given & when
+        boolean isGiveawayTarget = christmasEvent.isGiveawayTarget(amount);
+
+        // then
+        assertTrue(isGiveawayTarget);
+    }
+
+    @DisplayName("할인 전 총 금액이 12만원 미만이면 증정 이벤트 여부가 false 이다.")
+    @ParameterizedTest
+    @ValueSource(ints = {199_999, 1, 1000, 10_000})
+    public void isNotGiveawayTarget(int amount) {
+        // given & when
+        boolean isNotGiveawayTarget = christmasEvent.isGiveawayTarget(amount);
+
+        // then
+        assertFalse(isNotGiveawayTarget);
+    }
 }
