@@ -22,4 +22,8 @@ public class ChristmasEvent {
     public boolean isSpecialDayDiscount(int day) {
         return getDayType(day) == SPECIAL_DAY;
     }
+
+    public boolean isGiveawayTarget(int amount) {
+        return amount >= 120_000;
+    }
 }
