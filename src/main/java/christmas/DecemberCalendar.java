@@ -25,25 +25,17 @@ public class DecemberCalendar {
     }
 
     private void initWeekend() {
-        calendar.put(1, WEEKEND);
-        calendar.put(2, WEEKEND);
-        calendar.put(8, WEEKEND);
-        calendar.put(9, WEEKEND);
-        calendar.put(15, WEEKEND);
-        calendar.put(16, WEEKEND);
-        calendar.put(22, WEEKEND);
-        calendar.put(23, WEEKEND);
-        calendar.put(29, WEEKEND);
-        calendar.put(30, WEEKEND);
+        for (int day = 1; day <= 31; day += 7) {
+            calendar.put(day, WEEKEND);
+            calendar.put(day + 1, WEEKEND);
+        }
     }
 
     private void initSpecialDay() {
-        calendar.put(3, SPECIAL_DAY);
-        calendar.put(10, SPECIAL_DAY);
-        calendar.put(17, SPECIAL_DAY);
-        calendar.put(24, SPECIAL_DAY);
+        for (int day = 3; day <= 31; day += 7) {
+            calendar.put(day, SPECIAL_DAY);
+        }
         calendar.put(25, SPECIAL_DAY);
-        calendar.put(31, SPECIAL_DAY);
     }
 
     private void initWeekday(int startDay, int endDay) {
