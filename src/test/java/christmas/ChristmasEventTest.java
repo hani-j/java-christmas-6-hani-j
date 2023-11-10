@@ -25,7 +25,7 @@ public class ChristmasEventTest {
 
     @DisplayName("평일 날짜가 들어오면 평일 할인 여부가 true 이다.")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 10, 14, 25})
+    @ValueSource(ints = {4, 5, 6, 7, 11, 18, 26, 28})
     public void isWeekdayDiscount(int day) {
         // given
         ChristmasEvent christmasEvent = new ChristmasEvent();
