@@ -1,5 +1,6 @@
 package christmas;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -147,17 +148,12 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 23, 24, 25})
     public void getDDayDiscountAmount(int day) {
-        // given
-        Menu menu = new Menu();
-        OrderHistory orderHistory = new OrderHistory();
-        orderHistory.addOrder(menu, "양송이수프", 1);
-
         // when
-        int dDayDiscountAmount = orderHistory.getDDayDiscountAmount();
+        int dDayDiscountAmount = christmasEvent.getDDayDiscountAmount(day);
 
         // then
         int expected = 1000 + (day - 1) * 100;
-        assertEquals(expected, disCountedAmount);
+        assertEquals(expected, dDayDiscountAmount);
     }
 
 //    @DisplayName("평일 날짜가 들어왔을 때 할인 후 예상 결제 금액을 반환한다.")
