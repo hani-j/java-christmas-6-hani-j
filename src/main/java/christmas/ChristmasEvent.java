@@ -95,7 +95,6 @@ public class ChristmasEvent {
     }
 
     public final int getTotalDisCountAmount() {
-        discountDetails.entrySet().stream().forEach(discount -> System.out.println(discount.getValue()));
         return discountDetails.entrySet().stream()
                 .mapToInt(discount -> discount.getValue())
                 .sum();
