@@ -1,5 +1,7 @@
 package christmas;
 
+import static christmas.ErrorMessage.INVALID_ORDER;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +21,7 @@ public class OrderHistory {
     private void validateOrder(Menu menu, String name, Integer quantity) {
         menu.validateNameInMenu(name);
         if (getAllQuantity() + quantity > 20) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
     }
 

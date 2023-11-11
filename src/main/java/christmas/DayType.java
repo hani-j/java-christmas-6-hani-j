@@ -1,5 +1,7 @@
 package christmas;
 
+import static christmas.ErrorMessage.INVALID_DAY;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +25,7 @@ public enum DayType {
         return Arrays.stream(DayType.values())
                 .filter(dayType -> dayType.getDays().contains(day))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 날짜입니다."));
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_DAY.getMessage()));
     }
 
     private Set<Integer> getDays() {

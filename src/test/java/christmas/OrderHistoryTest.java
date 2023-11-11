@@ -1,5 +1,6 @@
 package christmas;
 
+import static christmas.ErrorMessage.INVALID_ORDER;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,7 +36,7 @@ public class OrderHistoryTest {
         // when & then
         assertThatThrownBy(() -> orderHistory.addOrder(menu, "양송이수푸", 1))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                .hasMessage(INVALID_ORDER.getMessage());
     }
 
     @DisplayName("20개가 넘는 수량을 추가하면 throw 가 발생한다.")
@@ -48,6 +49,6 @@ public class OrderHistoryTest {
         // when & then
         assertThatThrownBy(() -> orderHistory.addOrder(menu, "양송이수프", 21))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                .hasMessage(INVALID_ORDER.getMessage());
     }
 }

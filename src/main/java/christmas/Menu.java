@@ -1,5 +1,7 @@
 package christmas;
 
+import static christmas.ErrorMessage.INVALID_ORDER;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ public class Menu {
     public Product getProduct(final String name) {
         Product product = products.get(name);
         if (product == null) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
         return product;
     }

@@ -4,6 +4,7 @@ import static christmas.Category.APPETIZER;
 import static christmas.Category.BEVERAGE;
 import static christmas.Category.DESSERT;
 import static christmas.Category.MAIN;
+import static christmas.ErrorMessage.INVALID_ORDER;
 import static christmas.MenuItem.ZERO_COKE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -33,7 +34,7 @@ public class MenuTest {
         // when & then
         assertThatThrownBy(() -> menu.validateNameInMenu(name))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                .hasMessage(INVALID_ORDER.getMessage());
     }
 
     @DisplayName("에피타이저 메뉴를 입력하면 APPETIZER Enum 을 반환한다.")
