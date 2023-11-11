@@ -64,7 +64,7 @@ public class OrderHistoryTest {
         orderHistory.addOrder(menu, "제로콜라", 4);
 
         // when
-        int totalPrice = orderHistory.getTotalPrice();
+        int totalPrice = orderHistory.getTotalPrice(menu);
 
         // then
         int expected = (MUSHROOM_SOUP.getPrice() * 1)
