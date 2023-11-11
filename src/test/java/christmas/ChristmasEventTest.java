@@ -187,6 +187,7 @@ public class ChristmasEventTest {
         OrderHistory orderHistory = new OrderHistory();
         orderHistory.addOrder(menu, "양송이수프", 1);
         orderHistory.addOrder(menu, "티본스테이크", 2);
+        orderHistory.addOrder(menu, "바비큐립", 2);
         orderHistory.addOrder(menu, "초코케이크", 3);
         orderHistory.addOrder(menu, "제로콜라", 4);
 
@@ -194,7 +195,7 @@ public class ChristmasEventTest {
         int weekdayDisCountAmount = christmasEvent.getWeekendDisCountAmount(menu, orderHistory, day);
 
         // then
-        int expected = 2 * WEEKEND.getDiscountPrice();
+        int expected = 4 * WEEKEND.getDiscountPrice();
         assertEquals(expected, weekdayDisCountAmount);
     }
 }
