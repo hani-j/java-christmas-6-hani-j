@@ -4,11 +4,23 @@ import static christmas.DayType.SPECIAL_DAY;
 import static christmas.DayType.WEEKDAY;
 import static christmas.DayType.WEEKEND;
 import static christmas.DayType.getDayType;
+import static christmas.Event.D_DAY_ADD_AMOUNT;
+import static christmas.Event.D_DAY_DIFFERENCE;
+import static christmas.Event.D_DAY_DISCOUNT_AMOUNT;
+import static christmas.Event.D_DAY_TARGET;
+import static christmas.Event.EVENT_TARGET;
+import static christmas.Event.GIVEAWAY_AMOUNT;
+import static christmas.Event.GIVEAWAY_TARGET;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ChristmasEvent {
+    private final static String D_DAY_DISCOUNT = "크리스마스 디데이 할인";
+    private final static String WEEKDAY_DISCOUNT = "평일 할인";
+    private final static String WEEKEND_DISCOUNT = "주말 할인";
+    private final static String SPECIAL_DISCOUNT = "특별 할인";
+    private final static String GIVEAWAY_EVENT = "증정 이벤트";
 
     private Map<String, Integer> discountDetails;
 
@@ -29,26 +41,27 @@ public class ChristmasEvent {
     }
 
     public final boolean isNotEventTarget(final int amount) {
-        return amount < 10_000;
+        return amount < EVENT_TARGET.getValue();
     }
 
     public void applyDDayDiscount(final int day) {
         if (isDDayDiscount(day)) {
-            discountDetails.put("크리스마스 디데이 할인", getDDayDiscountAmount(day));
+            discountDetails.put(D_DAY_DISCOUNT, getDDayDiscountAmount(day));
         }
     }
 
     public final boolean isDDayDiscount(final int day) {
-        return day <= 25;
+        return day <= D_DAY_TARGET.getValue();
     }
 
     public final int getDDayDiscountAmount(final int day) {
-        return 1000 + (day - 1) * 100;
+        return D_DAY_DISCOUNT_AMOUNT.getValue() +
+                (day - D_DAY_DIFFERENCE.getValue()) * D_DAY_ADD_AMOUNT.getValue();
     }
 
     public void applyWeekdayDiscount(final Menu menu, final OrderHistory orderHistory, final int day) {
         if (isWeekdayDiscount(day)) {
-            discountDetails.put("평일 할인", getWeekdayDisCountAmount(menu, orderHistory));
+            discountDetails.put(WEEKDAY_DISCOUNT, getWeekdayDisCountAmount(menu, orderHistory));
         }
     }
 
@@ -62,7 +75,7 @@ public class ChristmasEvent {
 
     public void applyWeekendDiscount(final Menu menu, final OrderHistory orderHistory, final int day) {
         if (isWeekendDiscount(day)) {
-            discountDetails.put("주말 할인", getWeekendDisCountAmount(menu, orderHistory));
+            discountDetails.put(WEEKEND_DISCOUNT, getWeekendDisCountAmount(menu, orderHistory));
         }
     }
 
@@ -76,7 +89,7 @@ public class ChristmasEvent {
 
     public void applySpecialDiscount(final int day) {
         if (isSpecialDayDiscount(day)) {
-            discountDetails.put("특별 할인", 1000);
+            discountDetails.put(SPECIAL_DISCOUNT, SPECIAL_DAY.getDiscountPrice());
         }
     }
 
@@ -86,12 +99,12 @@ public class ChristmasEvent {
 
     public void applyGiveawayDiscount(final Menu menu, final OrderHistory orderHistory) {
         if (isGiveawayTarget(orderHistory.getTotalAmount(menu))) {
-            discountDetails.put("증정 이벤트", 25_000);
+            discountDetails.put(GIVEAWAY_EVENT, GIVEAWAY_AMOUNT.getValue());
         }
     }
 
     public final boolean isGiveawayTarget(final int amount) {
-        return amount >= 120_000;
+        return amount >= GIVEAWAY_TARGET.getValue();
     }
 
     public final int getTotalBenefitAmount() {
@@ -102,7 +115,7 @@ public class ChristmasEvent {
 
     public final int getTotalDisCountAmount() {
         return discountDetails.entrySet().stream()
-                .filter(discount -> !discount.getKey().equals("증정 이벤트"))
+                .filter(discount -> !discount.getKey().equals(GIVEAWAY_EVENT))
                 .mapToInt(discount -> discount.getValue())
                 .sum();
     }
