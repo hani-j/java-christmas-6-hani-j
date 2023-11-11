@@ -31,7 +31,7 @@ public class ChristmasEventTotalTest {
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
 
         // when
-        int totalDisCountAmount = christmasEvent.getTotalDisCountAmount();
+        int totalDisCountAmount = christmasEvent.getTotalBenefitAmount();
 
         // then
         int expected = 1300 + 3 * WEEKDAY.getDiscountPrice() + 25000;
@@ -50,7 +50,7 @@ public class ChristmasEventTotalTest {
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
 
         // when
-        int totalDisCountAmount = christmasEvent.getTotalDisCountAmount();
+        int totalDisCountAmount = christmasEvent.getTotalBenefitAmount();
 
         // then
         int expected = 2400 + 2 * WEEKEND.getDiscountPrice() + 25000;
@@ -69,7 +69,7 @@ public class ChristmasEventTotalTest {
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
 
         // when
-        int totalDisCountAmount = christmasEvent.getTotalDisCountAmount();
+        int totalDisCountAmount = christmasEvent.getTotalBenefitAmount();
 
         // then
         int expected = 31_246;
@@ -88,7 +88,7 @@ public class ChristmasEventTotalTest {
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
 
         // when
-        int totalDisCountedAmount = christmasEvent.getTotalDisCountedAmount();
+        int totalDisCountedAmount = christmasEvent.getTotalDisCountedAmount(menu, orderHistory);
 
         // then
         int expected = 135_754;
