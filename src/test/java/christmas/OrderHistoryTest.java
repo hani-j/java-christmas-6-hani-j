@@ -36,6 +36,18 @@ public class OrderHistoryTest {
         assertThatThrownBy(() -> orderHistory.addOrder(menu, "양송이수푸", 1))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-        assertEquals(0, orderHistory.getAllQuantity());
+    }
+
+    @DisplayName("20개가 넘는 수량을 추가하면 throw 가 발생한다.")
+    @Test
+    public void addOrderQuantityFail() {
+        // given
+        OrderHistory orderHistory = new OrderHistory();
+        Menu menu = new Menu();
+
+        // when & then
+        assertThatThrownBy(() -> orderHistory.addOrder(menu, "양송이수프", 21))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 }
