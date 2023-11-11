@@ -36,10 +36,4 @@ public class OrderHistory {
                 .mapToInt(order -> menu.getPrice(order.getKey()) * order.getValue())
                 .sum();
     }
-
-    public int getDiscountedAmount(Menu menu, int discountAmount) {
-        return orders.entrySet().stream()
-                .mapToInt(order -> (menu.getPrice(order.getKey()) - discountAmount) * order.getValue())
-                .sum();
-    }
 }

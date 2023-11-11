@@ -74,25 +74,5 @@ public class OrderHistoryTest {
 
         assertEquals(expected, totalAmount);
     }
-
-    @DisplayName("주문 내역의 총 주문 금액을 반환한다.")
-    @Test
-    public void getDiscountedAmount() {
-        // given
-        orderHistory.addOrder(menu, "양송이수프", 1);
-        orderHistory.addOrder(menu, "티본스테이크", 2);
-        orderHistory.addOrder(menu, "초코케이크", 3);
-        orderHistory.addOrder(menu, "제로콜라", 4);
-
-        // when
-        int discountedAmount = orderHistory.getDiscountedAmount(menu);
-
-        // then
-        int expected = ((MUSHROOM_SOUP.getPrice() - 2023) * 1)
-                + ((T_BONE_STAKE.getPrice() - 2023) * 2)
-                + ((CHOCO_CAKE.getPrice() - 2023) * 3)
-                + ((ZERO_COKE.getPrice() - 2023) * 4);
-
-        assertEquals(expected, discountedAmount);
-    }
 }
+
