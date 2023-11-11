@@ -17,7 +17,7 @@ public class Menu {
         });
     }
 
-    private Product getProduct(final String name) {
+    public Product getProduct(final String name) {
         Product product = products.get(name);
         if (product == null) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
