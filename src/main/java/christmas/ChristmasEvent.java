@@ -25,6 +25,7 @@ public class ChristmasEvent {
         applyWeekdayDiscount(menu, orderHistory, day);
         applyWeekendDiscount(menu, orderHistory, day);
         applySpecialDiscount(day);
+        applyGiveawayDiscount(menu, orderHistory);
     }
 
     public final boolean isNotEventTarget(final int amount) {
@@ -81,6 +82,16 @@ public class ChristmasEvent {
 
     public final boolean isSpecialDayDiscount(final int day) {
         return getDayType(day) == SPECIAL_DAY;
+    }
+
+    public void applyGiveawayDiscount(final Menu menu, final OrderHistory orderHistory) {
+        if (isGiveawayTarget(orderHistory.getTotalAmount(menu))) {
+            discountDetails.put("증정 이벤트", 25_000);
+        }
+    }
+
+    public final boolean isGiveawayTarget(final int amount) {
+        return amount >= 120_000;
     }
 
     public final int getTotalDisCountAmount() {
