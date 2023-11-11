@@ -18,11 +18,14 @@ public class OrderHistory {
 
     private void validateOrder(Menu menu, String name, Integer quantity) {
         menu.validateNameInMenu(name);
-        int allQuantity = orders.values().stream()
-                .mapToInt(Integer::intValue)
-                .sum();
-        if (allQuantity + quantity > 20) {
+        if (getAllQuantity() + quantity > 20) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
+    }
+
+    public Integer getAllQuantity() {
+        return orders.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 }
