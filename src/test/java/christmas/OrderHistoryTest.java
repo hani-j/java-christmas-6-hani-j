@@ -26,7 +26,7 @@ public class OrderHistoryTest {
         assertEquals(10, orderHistory.getAllQuantity());
     }
 
-    @DisplayName("없는 메뉴이면 주문내역에 추가하지 않는다.")
+    @DisplayName("없는 메뉴이면 주문내역에 추가하지 않고 throw 가 발생한다.")
     @Test
     public void addOrderNameFail() {
         // given
