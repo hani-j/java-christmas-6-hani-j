@@ -30,4 +30,10 @@ public class OrderHistory {
                 .mapToInt(Integer::intValue)
                 .sum();
     }
+
+    public int getTotalPrice(Menu menu) {
+        return orders.entrySet().stream()
+                .mapToInt(order -> menu.getPrice(order.getKey()) * order.getValue())
+                .sum();
+    }
 }
