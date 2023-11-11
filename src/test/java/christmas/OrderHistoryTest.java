@@ -1,6 +1,10 @@
 package christmas;
 
 import static christmas.ErrorMessage.INVALID_ORDER;
+import static christmas.MenuItem.CHOCO_CAKE;
+import static christmas.MenuItem.MUSHROOM_SOUP;
+import static christmas.MenuItem.T_BONE_STAKE;
+import static christmas.MenuItem.ZERO_COKE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -50,5 +54,28 @@ public class OrderHistoryTest {
         assertThatThrownBy(() -> orderHistory.addOrder(menu, "양송이수프", 21))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_ORDER.getMessage());
+    }
+
+    @DisplayName("주문 내역의 총 주문 금액을 반환한다.")
+    @Test
+    public void getTotalPrice() {
+        // given
+        OrderHistory orderHistory = new OrderHistory();
+        Menu menu = new Menu();
+        orderHistory.addOrder(menu, "양송이수프", 1);
+        orderHistory.addOrder(menu, "티본스테이크", 2);
+        orderHistory.addOrder(menu, "초코케이크", 3);
+        orderHistory.addOrder(menu, "제로콜라", 4);
+
+        // when
+        int totalPrice = orderHistory.getTotalPrice();
+
+        // then
+        int expected = (MUSHROOM_SOUP.getPrice() * 1)
+                + (T_BONE_STAKE.getPrice() * 2)
+                + (CHOCO_CAKE.getPrice() * 3)
+                + (ZERO_COKE.getPrice() * 4);
+
+        assertEquals(expected, totalPrice);
     }
 }
