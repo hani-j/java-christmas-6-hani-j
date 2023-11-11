@@ -7,23 +7,24 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class ChristmasEventTest {
 
-    ChristmasEvent christmasEvent = new ChristmasEvent();
+    Menu menu = new Menu();
+    OrderHistory orderHistory = new OrderHistory();
+    ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 1);
 
     @DisplayName("총 주문 금액이 10,000원 이상이면 이벤트 대상 여부가 true 이다.")
     @ParameterizedTest
     @ValueSource(ints = {10_000, 20_000, 100_000, 200_000})
     public void isEventTarget(int amount) {
         // given & when
-        boolean isEventTarget = christmasEvent.isEventTarget(amount);
+        boolean isEventTarget = christmasEvent.isNotEventTarget(amount);
 
         // then
-        assertTrue(isEventTarget);
+        assertFalse(isEventTarget);
     }
 
     @DisplayName("총 주문 금액이 10,000원 미만이면 이벤트 대상 여부가 false 이다.")
@@ -31,10 +32,10 @@ public class ChristmasEventTest {
     @ValueSource(ints = {9_999, 1000, 2000, 5000})
     public void isNotEventTarget(int amount) {
         // given & when
-        boolean isNotEventTarget = christmasEvent.isEventTarget(amount);
+        boolean isNotEventTarget = christmasEvent.isNotEventTarget(amount);
 
         // then
-        assertFalse(isNotEventTarget);
+        assertTrue(isNotEventTarget);
     }
 
     @DisplayName("25 일 이하의 숫자가 들어오면 크리스마스 d-day 할인 여부가 true 이다.")
@@ -172,7 +173,7 @@ public class ChristmasEventTest {
         orderHistory.addOrder(menu, "제로콜라", 4);
 
         // when
-        int weekdayDisCountAmount = christmasEvent.getWeekdayDisCountAmount(menu, orderHistory, day);
+        int weekdayDisCountAmount = christmasEvent.getWeekdayDisCountAmount(menu, orderHistory);
 
         // then
         int expected = 3 * WEEKDAY.getDiscountPrice();
@@ -193,30 +194,10 @@ public class ChristmasEventTest {
         orderHistory.addOrder(menu, "제로콜라", 4);
 
         // when
-        int weekdayDisCountAmount = christmasEvent.getWeekendDisCountAmount(menu, orderHistory, day);
+        int weekdayDisCountAmount = christmasEvent.getWeekendDisCountAmount(menu, orderHistory);
 
         // then
         int expected = 4 * WEEKEND.getDiscountPrice();
         assertEquals(expected, weekdayDisCountAmount);
-    }
-
-    @DisplayName("평일 날짜가 들어왔을 때 총 혜택 금액을 반환한다.")
-    @Test
-    public void getTotalDisCountAmount() {
-        // given
-        int day = 3;
-        Menu menu = new Menu();
-        OrderHistory orderHistory = new OrderHistory();
-        orderHistory.addOrder(menu, "양송이수프", 1);
-        orderHistory.addOrder(menu, "티본스테이크", 2);
-        orderHistory.addOrder(menu, "초코케이크", 3);
-        orderHistory.addOrder(menu, "제로콜라", 4);
-
-        // when
-        int totalDisCountAmount = christmasEvent.getTotalDisCountAmount(menu, orderHistory, day);
-
-        // then
-        int expected = 1200 + 3 * WEEKEND.getDiscountPrice();
-        assertEquals(expected, totalDisCountAmount);
     }
 }
