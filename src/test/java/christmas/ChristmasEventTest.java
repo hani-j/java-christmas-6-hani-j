@@ -1,9 +1,15 @@
 package christmas;
 
+import static christmas.DayType.WEEKDAY;
+import static christmas.MenuItem.CHOCO_CAKE;
+import static christmas.MenuItem.MUSHROOM_SOUP;
+import static christmas.MenuItem.T_BONE_STAKE;
+import static christmas.MenuItem.ZERO_COKE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -141,5 +147,28 @@ public class ChristmasEventTest {
 
         // then
         assertFalse(isNotGiveawayTarget);
+    }
+
+    @DisplayName("평일 날짜가 들어왔을 때 할인 후 예상 결제 금액을 반환한다.")
+    @Test
+    public void getDisCountedAmount(int amount) {
+        // given
+        Menu menu = new Menu();
+        OrderHistory orderHistory = new OrderHistory();
+        orderHistory.addOrder(menu, "양송이수프", 1);
+        orderHistory.addOrder(menu, "티본스테이크", 2);
+        orderHistory.addOrder(menu, "초코케이크", 3);
+        orderHistory.addOrder(menu, "제로콜라", 4);
+
+        // when
+        int disCountedAmount = orderHistory.getDisCountedAmount(menu);
+
+        // then
+        int expected = (MUSHROOM_SOUP.getPrice() * 1)
+                + (T_BONE_STAKE.getPrice() * 2)
+                + ((CHOCO_CAKE.getPrice() - WEEKDAY.getDiscountPrice()) * 3)
+                + (ZERO_COKE.getPrice() * 4);
+
+        assertEquals(expected, disCountedAmount);
     }
 }
