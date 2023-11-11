@@ -94,9 +94,20 @@ public class ChristmasEvent {
         return amount >= 120_000;
     }
 
-    public final int getTotalDisCountAmount() {
+    public final int getTotalBenefitAmount() {
         return discountDetails.entrySet().stream()
                 .mapToInt(discount -> discount.getValue())
                 .sum();
+    }
+
+    public final int getTotalDisCountAmount() {
+        return discountDetails.entrySet().stream()
+                .filter(discount -> !discount.getKey().equals("증정 이벤트"))
+                .mapToInt(discount -> discount.getValue())
+                .sum();
+    }
+
+    public final int getTotalDisCountedAmount(final Menu menu, final OrderHistory orderHistory) {
+        return orderHistory.getTotalAmount(menu) - getTotalDisCountAmount();
     }
 }
