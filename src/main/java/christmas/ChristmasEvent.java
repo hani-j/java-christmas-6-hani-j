@@ -25,6 +25,13 @@ public class ChristmasEvent {
         return 0;
     }
 
+    public final int getWeekendDisCountAmount(final Menu menu, final OrderHistory orderHistory, final int day) {
+        if (isWeekendDiscount(day)) {
+            return orderHistory.getMainCount(menu) * WEEKDAY.getDiscountPrice();
+        }
+        return 0;
+    }
+
     public final boolean isEventTarget(final int amount) {
         return amount < 10_000;
     }

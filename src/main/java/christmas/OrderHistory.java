@@ -44,4 +44,11 @@ public class OrderHistory {
                 .mapToInt(order -> order.getValue())
                 .sum();
     }
+
+    public int getMainCount(Menu menu) {
+        return orders.entrySet().stream()
+                .filter(order -> menu.getCategory(order.getKey()) == Category.MAIN)
+                .mapToInt(order -> order.getValue())
+                .sum();
+    }
 }
