@@ -45,4 +45,21 @@ public class ValidatorTest {
         assertThatThrownBy(() -> validator.validateOrderFormat(order))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("메뉴의 개수가 1이상인 경우 Throw 가 발생하지 않는다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"해산물파스타-2,레드와인-1,초코케이크-1", "해산물파스타-2,레드와인-7,초코케이크-11"})
+    void validateMenuAmount(String order) {
+        // when & then
+        assertDoesNotThrow(() -> validator.validateMenuAmount(order));
+    }
+
+    @DisplayName("메뉴의 개수가 1이상이 아닌 경우 Throw 가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"해산물파스타--2,레드와인-1,초코케이크-1", "해산물파스타-0,레드와인-7,초코케이크-11"})
+    void validateInvalidMenuAmount(String order) {
+        // when & then
+        assertThatThrownBy(() -> validator.validateMenuAmount(order))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
