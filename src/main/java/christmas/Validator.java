@@ -1,5 +1,7 @@
 package christmas;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,9 +64,24 @@ public class Validator {
         validateRange(number);
     }
 
-    public void validateRange(String number) {
+    private void validateRange(String number) {
         int amount = Integer.parseInt(number);
         if (amount < 1) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public void validateMenuDuplicate(String order) {
+        Matcher orderMatcher = MENU.matcher(order);
+        Set<String> menus = new HashSet<>();
+        int menuCount = 0;
+
+        while (orderMatcher.find()) {
+            String menu = orderMatcher.group(1);
+            menus.add(menu);
+            menuCount++;
+        }
+        if (menuCount != menus.size()) {
             throw new IllegalArgumentException();
         }
     }
