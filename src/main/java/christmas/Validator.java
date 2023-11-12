@@ -1,11 +1,13 @@
 package christmas;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validator {
 
     private static final Pattern NUMBER = Pattern.compile("[0-9]+");
     private static final Pattern ORDER = Pattern.compile("^([가-힣]+-\\d,)*[가-힣]+-\\d$");
+    private static final Pattern MENU = Pattern.compile("([가-힣]+)-(-?\\d+)");
 
     public void validateDay(String number) {
         try {
@@ -41,6 +43,28 @@ public class Validator {
 
     public void validateOrderFormat(String order) {
         if (!ORDER.matcher(order).matches()) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public void validateMenuAmount(String order) {
+        Matcher orderMatcher = MENU.matcher(order);
+
+        while (orderMatcher.find()) {
+            String amount = orderMatcher.group(2);
+            validateAmountRange(amount);
+        }
+    }
+
+    private void validateAmountRange(String number) {
+        validateNumber(number);
+        validateNumberSize(number);
+        validateRange(number);
+    }
+
+    public void validateRange(String number) {
+        int amount = Integer.parseInt(number);
+        if (amount < 1) {
             throw new IllegalArgumentException();
         }
     }
