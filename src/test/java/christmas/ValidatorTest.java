@@ -76,8 +76,11 @@ public class ValidatorTest {
     @ParameterizedTest
     @ValueSource(strings = {"제로콜라-1", "제로콜라-2,레드와인-1,샴페인-1"})
     void validateOnlyBeverage(String order) {
+        // given
+        Menu menu = new Menu();
+
         // when & then
-        assertThatThrownBy(() -> validator.validateOnlyBeverage(order))
+        assertThatThrownBy(() -> validator.validateOnlyBeverage(menu, order))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
