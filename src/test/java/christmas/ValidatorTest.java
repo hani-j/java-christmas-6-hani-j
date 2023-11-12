@@ -40,8 +40,9 @@ public class ValidatorTest {
     @DisplayName("메뉴 형식에 맞지 않는 경우 Throw 가 발생한다.")
     @ParameterizedTest
     @ValueSource(strings = {"해산물파스타-2, 레드와인-1,초코케이크-1", "해산물파스타2, 레드와인1,초코케이크1"})
-    void validateOrderFormat(String order) {
+    void validateNotOrderFormat(String order) {
         // when & then
-        assertThatThrownBy(() -> validator.validateOrderFormat(order));
+        assertThatThrownBy(() -> validator.validateOrderFormat(order))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
