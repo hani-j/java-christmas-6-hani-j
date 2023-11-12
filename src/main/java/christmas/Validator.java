@@ -1,5 +1,7 @@
 package christmas;
 
+import static christmas.Category.BEVERAGE;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -84,5 +86,17 @@ public class Validator {
         if (menuCount != menus.size()) {
             throw new IllegalArgumentException();
         }
+    }
+
+    public void validateOnlyBeverage(Menu menu, String order) {
+        Matcher orderMatcher = MENU.matcher(order);
+
+        while (orderMatcher.find()) {
+            String orderMenu = orderMatcher.group(1);
+            if (menu.getCategory(orderMenu) != BEVERAGE) {
+                return;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 }
