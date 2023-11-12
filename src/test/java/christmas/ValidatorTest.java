@@ -62,4 +62,13 @@ public class ValidatorTest {
         assertThatThrownBy(() -> validator.validateMenuAmount(order))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("메뉴가 중복된 경우 Throw 가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"해산물파스타-2,해물파스타-1,초코케이크-1", "초코케이크-0,레드와인-7,초코케이크-11"})
+    void validateMenuDuplicate(String order) {
+        // when & then
+        assertThatThrownBy(() -> validator.validateMenuDuplicate(order))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
