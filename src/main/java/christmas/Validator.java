@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 public class Validator {
 
     private static final Pattern NUMBER = Pattern.compile("[0-9]+");
+    private static final Pattern ORDER = Pattern.compile("^([가-힣]+-\\d,)*[가-힣]+-\\d$");
 
     public void validateDay(String number) {
         try {
@@ -34,6 +35,12 @@ public class Validator {
         int day = Integer.parseInt(number);
 
         if (day < 1 || day > 31) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public void validateOrderFormat(String order) {
+        if (!ORDER.matcher(order).matches()) {
             throw new IllegalArgumentException();
         }
     }
