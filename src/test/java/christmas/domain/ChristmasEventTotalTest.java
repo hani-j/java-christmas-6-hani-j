@@ -1,9 +1,11 @@
-package christmas;
+package christmas.domain;
 
-import static christmas.DayType.WEEKDAY;
-import static christmas.DayType.WEEKEND;
+import static christmas.domain.event.DayType.WEEKDAY;
+import static christmas.domain.event.DayType.WEEKEND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import christmas.domain.event.ChristmasEvent;
+import christmas.domain.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

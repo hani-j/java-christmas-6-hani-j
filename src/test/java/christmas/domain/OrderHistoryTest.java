@@ -1,13 +1,14 @@
-package christmas;
+package christmas.domain;
 
-import static christmas.ErrorMessage.INVALID_ORDER;
-import static christmas.MenuItem.CHOCO_CAKE;
-import static christmas.MenuItem.MUSHROOM_SOUP;
-import static christmas.MenuItem.T_BONE_STAKE;
-import static christmas.MenuItem.ZERO_COKE;
+import static christmas.domain.ErrorMessage.INVALID_ORDER;
+import static christmas.domain.menu.MenuItem.CHOCO_CAKE;
+import static christmas.domain.menu.MenuItem.MUSHROOM_SOUP;
+import static christmas.domain.menu.MenuItem.T_BONE_STAKE;
+import static christmas.domain.menu.MenuItem.ZERO_COKE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import christmas.domain.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

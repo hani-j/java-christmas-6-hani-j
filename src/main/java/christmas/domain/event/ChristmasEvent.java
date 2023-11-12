@@ -1,17 +1,19 @@
-package christmas;
+package christmas.domain.event;
 
-import static christmas.DayType.SPECIAL_DAY;
-import static christmas.DayType.WEEKDAY;
-import static christmas.DayType.WEEKEND;
-import static christmas.DayType.getDayType;
-import static christmas.Event.D_DAY_ADD_AMOUNT;
-import static christmas.Event.D_DAY_DIFFERENCE;
-import static christmas.Event.D_DAY_DISCOUNT_AMOUNT;
-import static christmas.Event.D_DAY_TARGET;
-import static christmas.Event.EVENT_TARGET;
-import static christmas.Event.GIVEAWAY_AMOUNT;
-import static christmas.Event.GIVEAWAY_TARGET;
+import static christmas.domain.event.DayType.SPECIAL_DAY;
+import static christmas.domain.event.DayType.WEEKDAY;
+import static christmas.domain.event.DayType.WEEKEND;
+import static christmas.domain.event.DayType.getDayType;
+import static christmas.domain.event.Event.D_DAY_ADD_AMOUNT;
+import static christmas.domain.event.Event.D_DAY_DIFFERENCE;
+import static christmas.domain.event.Event.D_DAY_DISCOUNT_AMOUNT;
+import static christmas.domain.event.Event.D_DAY_TARGET;
+import static christmas.domain.event.Event.EVENT_TARGET;
+import static christmas.domain.event.Event.GIVEAWAY_AMOUNT;
+import static christmas.domain.event.Event.GIVEAWAY_TARGET;
 
+import christmas.domain.OrderHistory;
+import christmas.domain.menu.Menu;
 import java.util.HashMap;
 import java.util.Map;
 

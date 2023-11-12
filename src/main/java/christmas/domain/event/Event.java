@@ -1,4 +1,4 @@
-package christmas;
+package christmas.domain.event;
 
 public enum Event {
     EVENT_TARGET(10_000),

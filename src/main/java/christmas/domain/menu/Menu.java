@@ -1,7 +1,8 @@
-package christmas;
+package christmas.domain.menu;
 
-import static christmas.ErrorMessage.INVALID_ORDER;
+import static christmas.domain.ErrorMessage.INVALID_ORDER;
 
+import christmas.domain.Product;
 import java.util.HashMap;
 import java.util.Map;
 

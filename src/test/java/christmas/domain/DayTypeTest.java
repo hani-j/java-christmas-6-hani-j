@@ -1,10 +1,11 @@
-package christmas;
+package christmas.domain;
 
-import static christmas.DayType.getDayType;
-import static christmas.ErrorMessage.INVALID_DAY;
+import static christmas.domain.ErrorMessage.INVALID_DAY;
+import static christmas.domain.event.DayType.getDayType;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import christmas.domain.event.DayType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

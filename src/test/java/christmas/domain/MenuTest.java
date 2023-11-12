@@ -1,15 +1,17 @@
-package christmas;
+package christmas.domain;
 
-import static christmas.Category.APPETIZER;
-import static christmas.Category.BEVERAGE;
-import static christmas.Category.DESSERT;
-import static christmas.Category.MAIN;
-import static christmas.ErrorMessage.INVALID_ORDER;
-import static christmas.MenuItem.ZERO_COKE;
+import static christmas.domain.ErrorMessage.INVALID_ORDER;
+import static christmas.domain.menu.Category.APPETIZER;
+import static christmas.domain.menu.Category.BEVERAGE;
+import static christmas.domain.menu.Category.DESSERT;
+import static christmas.domain.menu.Category.MAIN;
+import static christmas.domain.menu.MenuItem.ZERO_COKE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import christmas.domain.menu.Category;
+import christmas.domain.menu.Menu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

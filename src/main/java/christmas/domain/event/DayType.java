@@ -1,6 +1,6 @@
-package christmas;
+package christmas.domain.event;
 
-import static christmas.ErrorMessage.INVALID_DAY;
+import static christmas.domain.ErrorMessage.INVALID_DAY;
 
 import java.util.Arrays;
 import java.util.HashSet;

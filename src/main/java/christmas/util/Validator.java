@@ -1,7 +1,8 @@
-package christmas;
+package christmas.util;
 
-import static christmas.Category.BEVERAGE;
+import static christmas.domain.menu.Category.BEVERAGE;
 
+import christmas.domain.menu.Menu;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
