@@ -31,7 +31,7 @@ public class ValidatorTest {
 
     @DisplayName("메뉴 형식에 맞는 경우 Throw 가 발생하지 않는다.")
     @ParameterizedTest
-    @ValueSource(strings = {"해산물파스타-2,레드와인-1,초코케이크-1"})
+    @ValueSource(strings = {"해산물파스타-1", "해산물파스타-2,레드와인-1,초코케이크-1"})
     void validateOrderFormat(String order) {
         // when & then
         assertDoesNotThrow(() -> validator.validateOrderFormat(order));
@@ -65,10 +65,19 @@ public class ValidatorTest {
 
     @DisplayName("메뉴가 중복된 경우 Throw 가 발생한다.")
     @ParameterizedTest
-    @ValueSource(strings = {"해산물파스타-2,해물파스타-1,초코케이크-1", "초코케이크-0,레드와인-7,초코케이크-11"})
+    @ValueSource(strings = {"해산물파스타-2,해산물파스타-1,초코케이크-1", "초코케이크-0,레드와인-7,초코케이크-11"})
     void validateMenuDuplicate(String order) {
         // when & then
         assertThatThrownBy(() -> validator.validateMenuDuplicate(order))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("음료만 주문한 경우 Throw 가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"제로콜라-1", "제로콜라-2,레드와인-1,샴페인-1"})
+    void validateOnlyBeverage(String order) {
+        // when & then
+        assertThatThrownBy(() -> validator.validateOnlyBeverage(order))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
