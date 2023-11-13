@@ -23,6 +23,10 @@ public class ChristmasEvent {
     private final static String WEEKEND_DISCOUNT = "주말 할인";
     private final static String SPECIAL_DISCOUNT = "특별 할인";
     private final static String GIVEAWAY_EVENT = "증정 이벤트";
+    private final static String STAR_BADGE = "별";
+    private final static String TREE_BADGE = "트리";
+    private final static String SANTA_BADGE = "산타";
+    private final static String NOTHING = "없음";
 
     private Map<String, Integer> discountDetails;
 
@@ -115,7 +119,7 @@ public class ChristmasEvent {
                 .sum();
     }
 
-    public final int getTotalDisCountAmount() {
+    public final int getTotalDiscountAmount() {
         return discountDetails.entrySet().stream()
                 .filter(discount -> !discount.getKey().equals(GIVEAWAY_EVENT))
                 .mapToInt(discount -> discount.getValue())
@@ -123,6 +127,20 @@ public class ChristmasEvent {
     }
 
     public final int getTotalDisCountedAmount(final Menu menu, final OrderHistory orderHistory) {
-        return orderHistory.getTotalAmount(menu) - getTotalDisCountAmount();
+        return orderHistory.getTotalAmount(menu) - getTotalDiscountAmount();
+    }
+
+    public final String getEventBadge() {
+        int discountAmount = getTotalDiscountAmount();
+        if (discountAmount >= 5000 && discountAmount < 10_000) {
+            return STAR_BADGE;
+        }
+        if (discountAmount >= 10_000 && discountAmount < 20_000) {
+            return TREE_BADGE;
+        }
+        if (discountAmount >= 20_000) {
+            return SANTA_BADGE;
+        }
+        return NOTHING;
     }
 }
