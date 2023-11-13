@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import christmas.domain.event.ChristmasEvent;
 import christmas.domain.menu.Menu;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -204,11 +205,20 @@ public class ChristmasEventTest {
     }
 
     @DisplayName("총 혜택 금액이 5천원 이상 1만원 미만이면 별을 반환한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {5000, 6000, 7000, 9999})
-    public void getEventBadge(int amount) {
+    @Test
+    public void getStarEventBadge() {
+        // given
+        Menu menu = new Menu();
+        OrderHistory orderHistory = new OrderHistory();
+        orderHistory.addOrder(menu, "양송이수프", 1);
+        orderHistory.addOrder(menu, "티본스테이크", 2);
+        orderHistory.addOrder(menu, "초코케이크", 3);
+        orderHistory.addOrder(menu, "제로콜라", 4);
+        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 3);
+
         // when
-        String eventBadge = christmasEvent.getEventBadge(amount);
+        System.out.println(christmasEvent.getTotalDiscountAmount());
+        String eventBadge = christmasEvent.getEventBadge();
 
         // then
         String expected = "별";
@@ -216,11 +226,20 @@ public class ChristmasEventTest {
     }
 
     @DisplayName("총 혜택 금액이 1만원 이상 2만원 미만이면 트리을 반환한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {10000, 16000, 17000, 19999})
-    public void getEventBadge(int amount) {
+    @Test
+    public void getTreeEventBadge() {
+        // given
+        Menu menu = new Menu();
+        OrderHistory orderHistory = new OrderHistory();
+        orderHistory.addOrder(menu, "양송이수프", 5);
+        orderHistory.addOrder(menu, "티본스테이크", 5);
+        orderHistory.addOrder(menu, "초코케이크", 5);
+        orderHistory.addOrder(menu, "제로콜라", 5);
+        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 3);
+
         // when
-        String eventBadge = christmasEvent.getEventBadge(amount);
+        System.out.println(christmasEvent.getTotalDiscountAmount());
+        String eventBadge = christmasEvent.getEventBadge();
 
         // then
         String expected = "트리";
@@ -228,11 +247,20 @@ public class ChristmasEventTest {
     }
 
     @DisplayName("총 혜택 금액이 2만원 이상이면 산타를 반환한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {20000, 26000, 27000, 29999})
-    public void getEventBadge(int amount) {
+    @Test
+    public void getSantaEventBadge() {
+        // given
+        Menu menu = new Menu();
+        OrderHistory orderHistory = new OrderHistory();
+        orderHistory.addOrder(menu, "양송이수프", 2);
+        orderHistory.addOrder(menu, "티본스테이크", 3);
+        orderHistory.addOrder(menu, "초코케이크", 10);
+        orderHistory.addOrder(menu, "제로콜라", 2);
+        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 3);
+
         // when
-        String eventBadge = christmasEvent.getEventBadge(amount);
+        System.out.println(christmasEvent.getTotalDiscountAmount());
+        String eventBadge = christmasEvent.getEventBadge();
 
         // then
         String expected = "산타";
