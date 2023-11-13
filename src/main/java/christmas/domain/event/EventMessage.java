@@ -14,11 +14,11 @@ public enum EventMessage {
 
     private final String message;
 
-    EventMessage(String message) {
+    EventMessage(final String message) {
         this.message = message;
     }
 
-    public String getMessage() {
+    public final String getMessage() {
         return message;
     }
 }

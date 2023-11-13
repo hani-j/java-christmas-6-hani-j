@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class ChristmasEvent {
 
-    private Map<String, Integer> discountDetails;
+    private final Map<String, Integer> discountDetails;
 
     public ChristmasEvent(final Menu menu, final OrderHistory orderHistory, final int day) {
         discountDetails = new HashMap<>();
@@ -110,7 +110,7 @@ public class ChristmasEvent {
         }
     }
 
-    public String getGiveaway(final Menu menu, final OrderHistory orderHistory) {
+    public final String getGiveaway(final Menu menu, final OrderHistory orderHistory) {
         if (isGiveawayTarget(orderHistory.getTotalAmount(menu))) {
             return CHAMPAGNE.getMessage();
         }
@@ -139,7 +139,7 @@ public class ChristmasEvent {
     }
 
     public final String getEventBadge() {
-        int discountAmount = getTotalBenefitAmount();
+        final int discountAmount = getTotalBenefitAmount();
         if (discountAmount >= 5000 && discountAmount < 10_000) {
             return STAR_BADGE.getMessage();
         }
@@ -152,8 +152,7 @@ public class ChristmasEvent {
         return NOTHING.getMessage();
     }
 
-    // 보류!!!
-    public Map<String, Integer> getDiscountDetails() {
+    public final Map<String, Integer> getDiscountDetails() {
         return discountDetails;
     }
 }

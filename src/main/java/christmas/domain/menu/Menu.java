@@ -20,7 +20,7 @@ public class Menu {
         });
     }
 
-    public Product getProduct(final String name) {
+    public final Product getProduct(final String name) {
         Product product = products.get(name);
         if (product == null) {
             throw new IllegalArgumentException(INVALID_ORDER.getMessage());

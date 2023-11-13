@@ -11,7 +11,7 @@ public class EventController {
     private final OutputView outputView;
     private final EventService eventService;
 
-    public EventController(InputView inputView, OutputView outputView, EventService eventService) {
+    public EventController(final InputView inputView, final OutputView outputView, final EventService eventService) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.eventService = eventService;
@@ -20,21 +20,20 @@ public class EventController {
     public void run() {
         outputView.printWelcomeMessage();
 
-        int day = getDay();
-        String order = getOrder();
-        eventService.setOrder(day, order);
+        final int day = getDay();
+        eventService.setOrder(day, getOrder());
 
-        printOrderHistory(day);
-        printEventDetails(day);
+        outputView.printPreview(day);
+        printOrderHistory();
+        printEventDetails();
     }
 
-    public void printOrderHistory(int day) {
-        outputView.printPreview(day);
+    public void printOrderHistory() {
         outputView.printOrderMenu(eventService.getOrders());
         outputView.printTotalAmount(eventService.getTotalAmount());
     }
 
-    public void printEventDetails(int day) {
+    public void printEventDetails() {
         outputView.printGiveawayMenu(eventService.getGiveaway());
         outputView.printBenefitDetails(eventService.getDiscountDetails());
         outputView.printTotalBenefitAmount(eventService.getTotalBenefitAmount());
@@ -42,7 +41,7 @@ public class EventController {
         outputView.printEventBadge(eventService.getEventBadge());
     }
 
-    public int getDay() {
+    public final int getDay() {
         try {
             String day = inputView.inputDay();
             EventValidator.validateDay(day);
@@ -53,7 +52,7 @@ public class EventController {
         }
     }
 
-    public String getOrder() {
+    public final String getOrder() {
         try {
             String order = inputView.inputOrder();
             EventValidator.validateOrder(order);

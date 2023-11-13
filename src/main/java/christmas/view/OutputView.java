@@ -24,12 +24,12 @@ public class OutputView {
         System.out.println(WELCOME_MESSAGE.getMessage());
     }
 
-    public void printPreview(int day) {
+    public void printPreview(final int day) {
         System.out.printf(PREVIEW.getMessage(), day);
         System.out.println();
     }
 
-    public void printOrderMenu(Map<String, Integer> orders) {
+    public void printOrderMenu(final Map<String, Integer> orders) {
         System.out.println(ORDER_MENU.getMessage());
         orders.entrySet().stream().forEach(order -> {
             System.out.printf(AMOUNT.getMessage(), order.getKey(), order.getValue());
@@ -37,23 +37,23 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalAmount(int amount) {
+    public void printTotalAmount(final int amount) {
         System.out.println(TOTAL_AMOUNT.getMessage());
         System.out.printf(WON.getMessage(), getWon(amount));
         System.out.println();
     }
 
-    private String getWon(int amount) {
+    private String getWon(final int amount) {
         return String.format(WON_FORMAT.getMessage(), amount);
     }
 
-    public void printGiveawayMenu(String giveaway) {
+    public void printGiveawayMenu(final String giveaway) {
         System.out.println(GIVEAWAY_MENU.getMessage());
         System.out.println(giveaway);
         System.out.println();
     }
 
-    public void printBenefitDetails(Map<String, Integer> discountDetails) {
+    public void printBenefitDetails(final Map<String, Integer> discountDetails) {
         System.out.println(BENEFIT_DETAILS.getMessage());
         if (discountDetails.size() == 0) {
             System.out.println(NOTHING.getMessage());
@@ -63,7 +63,7 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalBenefitAmount(int amount) {
+    public void printTotalBenefitAmount(final int amount) {
         System.out.println(TOTAL_BENEFIT_AMOUNT.getMessage());
         if (amount != 0) {
             System.out.printf(MINUS.getMessage());
@@ -72,13 +72,13 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalDiscountedAmount(int amount) {
+    public void printTotalDiscountedAmount(final int amount) {
         System.out.println(TOTAL_DISCOUNTED_AMOUNT.getMessage());
         System.out.printf(WON.getMessage(), getWon(amount));
         System.out.println();
     }
 
-    public void printEventBadge(String badge) {
+    public void printEventBadge(final String badge) {
         System.out.println(EVENT_BADGE.getMessage());
         System.out.println(badge);
     }

@@ -15,47 +15,46 @@ public class OrderHistory {
         this.orders = new HashMap<>();
     }
 
-    public void addOrder(Menu menu, String name, Integer quantity) {
+    public void addOrder(final Menu menu, final String name, final Integer quantity) {
         menu.validateNameInMenu(name);
         validateOrder(menu, name, quantity);
         orders.put(name, quantity);
     }
 
-    private void validateOrder(Menu menu, String name, Integer quantity) {
+    private void validateOrder(final Menu menu, final String name, final Integer quantity) {
         menu.validateNameInMenu(name);
         if (getAllQuantity() + quantity > 20) {
             throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
     }
 
-    public Integer getAllQuantity() {
+    public final Integer getAllQuantity() {
         return orders.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
     }
 
-    public int getTotalAmount(Menu menu) {
+    public final int getTotalAmount(final Menu menu) {
         return orders.entrySet().stream()
                 .mapToInt(order -> menu.getPrice(order.getKey()) * order.getValue())
                 .sum();
     }
 
-    public int getDessertCount(Menu menu) {
+    public final int getDessertCount(final Menu menu) {
         return orders.entrySet().stream()
                 .filter(order -> menu.getCategory(order.getKey()) == DESSERT)
                 .mapToInt(order -> order.getValue())
                 .sum();
     }
 
-    public int getMainCount(Menu menu) {
+    public final int getMainCount(final Menu menu) {
         return orders.entrySet().stream()
                 .filter(order -> menu.getCategory(order.getKey()) == Category.MAIN)
                 .mapToInt(order -> order.getValue())
                 .sum();
     }
 
-    // 보류
-    public Map<String, Integer> getOrders() {
+    public final Map<String, Integer> getOrders() {
         return orders;
     }
 }

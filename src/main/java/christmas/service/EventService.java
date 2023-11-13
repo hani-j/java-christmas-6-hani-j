@@ -11,55 +11,55 @@ import java.util.Map;
 import java.util.regex.Matcher;
 
 public class EventService {
-    Menu menu;
-    OrderHistory orderHistory;
-    ChristmasEvent christmasEvent;
+    private final Menu menu;
+    private final OrderHistory orderHistory;
+    private ChristmasEvent christmasEvent;
 
-    public EventService(Menu menu, OrderHistory orderHistory) {
+    public EventService(final Menu menu, final OrderHistory orderHistory) {
         this.menu = menu;
         this.orderHistory = orderHistory;
     }
 
-    public void setOrder(int day, String order) {
+    public void setOrder(final int day, final String order) {
         orderParser(order);
         christmasEvent = new ChristmasEvent(menu, orderHistory, day);
     }
 
-    public void orderParser(String order) {
-        Matcher orderMatcher = MENU_PATTERN.matcher(order);
+    public void orderParser(final String order) {
+        final Matcher orderMatcher = MENU_PATTERN.matcher(order);
 
         while (orderMatcher.find()) {
-            String name = orderMatcher.group(MENU.getValue());
-            String quantity = orderMatcher.group(QUANTITY.getValue());
+            final String name = orderMatcher.group(MENU.getValue());
+            final String quantity = orderMatcher.group(QUANTITY.getValue());
             orderHistory.addOrder(menu, name, Integer.parseInt(quantity));
         }
     }
 
-    public Map<String, Integer> getOrders() {
+    public final Map<String, Integer> getOrders() {
         return orderHistory.getOrders();
     }
 
-    public int getTotalAmount() {
+    public final int getTotalAmount() {
         return orderHistory.getTotalAmount(menu);
     }
 
-    public String getGiveaway() {
+    public final String getGiveaway() {
         return christmasEvent.getGiveaway(menu, orderHistory);
     }
 
-    public Map<String, Integer> getDiscountDetails() {
+    public final Map<String, Integer> getDiscountDetails() {
         return christmasEvent.getDiscountDetails();
     }
 
-    public int getTotalBenefitAmount() {
+    public final int getTotalBenefitAmount() {
         return christmasEvent.getTotalBenefitAmount();
     }
 
-    public int getTotalDisCountedAmount() {
+    public final int getTotalDisCountedAmount() {
         return christmasEvent.getTotalDisCountedAmount(menu, orderHistory);
     }
 
-    public String getEventBadge() {
+    public final String getEventBadge() {
         return christmasEvent.getEventBadge();
     }
 }

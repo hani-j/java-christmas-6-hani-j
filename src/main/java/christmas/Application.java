@@ -9,12 +9,12 @@ import christmas.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
-        EventService eventService = new EventService(
+        final EventService eventService = new EventService(
                 new Menu(),
                 new OrderHistory()
         );
 
-        EventController eventController = new EventController(
+        final EventController eventController = new EventController(
                 new InputView(),
                 new OutputView(),
                 eventService

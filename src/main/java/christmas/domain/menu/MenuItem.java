@@ -40,7 +40,7 @@ public enum MenuItem {
         return Arrays.asList(MenuItem.values());
     }
 
-    public static Category getCategoryByName(String name) {
+    public static final Category getCategoryByName(String name) {
         return getAllValues().stream()
                 .filter(menu -> menu.getName().equals(name))
                 .findFirst()

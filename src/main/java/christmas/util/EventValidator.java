@@ -22,7 +22,7 @@ import java.util.regex.Matcher;
 public class EventValidator {
 
 
-    public static void validateDay(String number) {
+    public static void validateDay(final String number) {
         try {
             validateNumber(number);
             validateNumberSize(number);
@@ -32,7 +32,7 @@ public class EventValidator {
         }
     }
 
-    private static void validateNumber(String number) {
+    private static void validateNumber(final String number) {
         if (!NUMBER_PATTERN.matcher(number).matches()) {
             throw new IllegalArgumentException();
         }
@@ -46,15 +46,15 @@ public class EventValidator {
         }
     }
 
-    private static void validateInRange(String number) {
-        int day = Integer.parseInt(number);
+    private static void validateInRange(final String number) {
+        final int day = Integer.parseInt(number);
 
         if (day < FIRST_DAY.getValue() || day > LAST_DAY.getValue()) {
             throw new IllegalArgumentException();
         }
     }
 
-    public static void validateOrder(String order) {
+    public static void validateOrder(final String order) {
         try {
             validateOrderFormat(order);
             validateMenuAmount(order);
@@ -66,14 +66,14 @@ public class EventValidator {
         }
     }
 
-    public static void validateOrderFormat(String order) {
+    public static void validateOrderFormat(final String order) {
         if (!ORDER_PATTERN.matcher(order).matches()) {
             throw new IllegalArgumentException();
         }
     }
 
-    public static void validateMenuAmount(String order) {
-        Matcher orderMatcher = MENU_PATTERN.matcher(order);
+    public static void validateMenuAmount(final String order) {
+        final Matcher orderMatcher = MENU_PATTERN.matcher(order);
 
         while (orderMatcher.find()) {
             String amount = orderMatcher.group(QUANTITY.getValue());
@@ -81,22 +81,22 @@ public class EventValidator {
         }
     }
 
-    private static void validateAmountRange(String number) {
+    private static void validateAmountRange(final String number) {
         validateNumber(number);
         validateNumberSize(number);
         validateMenuRange(number);
     }
 
-    private static void validateMenuRange(String number) {
-        int amount = Integer.parseInt(number);
+    private static void validateMenuRange(final String number) {
+        final int amount = Integer.parseInt(number);
         if (amount < MINIMUM_QUANTITY.getValue()) {
             throw new IllegalArgumentException();
         }
     }
 
-    public static void validateMenuDuplicate(String order) {
-        Matcher orderMatcher = MENU_PATTERN.matcher(order);
-        Set<String> menus = new HashSet<>();
+    public static void validateMenuDuplicate(final String order) {
+        final Matcher orderMatcher = MENU_PATTERN.matcher(order);
+        final Set<String> menus = new HashSet<>();
         int menuCount = INIT.getValue();
 
         while (orderMatcher.find()) {
@@ -109,8 +109,8 @@ public class EventValidator {
         }
     }
 
-    public static void validateOnlyBeverage(String order) {
-        Matcher orderMatcher = MENU_PATTERN.matcher(order);
+    public static void validateOnlyBeverage(final String order) {
+        final Matcher orderMatcher = MENU_PATTERN.matcher(order);
         boolean onlyBeverage = true;
 
         while (orderMatcher.find()) {
@@ -124,8 +124,8 @@ public class EventValidator {
         }
     }
 
-    public static void validateQuantity(String order) {
-        Matcher orderMatcher = MENU_PATTERN.matcher(order);
+    public static void validateQuantity(final String order) {
+        final Matcher orderMatcher = MENU_PATTERN.matcher(order);
         int sum = INIT.getValue();
 
         while (orderMatcher.find()) {
