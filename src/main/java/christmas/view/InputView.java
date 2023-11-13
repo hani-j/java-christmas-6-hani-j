@@ -8,12 +8,12 @@ import camp.nextstep.edu.missionutils.Console;
 public class InputView {
 
     public String inputDay() {
-        System.out.println(REQUEST_DAY);
+        System.out.println(REQUEST_DAY.getMessage());
         return Console.readLine();
     }
 
     public String inputOrder() {
-        System.out.println(REQUEST_ORDER);
+        System.out.println(REQUEST_ORDER.getMessage());
         return Console.readLine();
     }
 }

@@ -13,7 +13,7 @@ public enum OutputMessage {
     BENEFIT_DETAILS("<혜택 내역>"),
     DETAILS("%s: -%d원\n"),
     TOTAL_BENEFIT_AMOUNT("<총혜택 금액>"),
-    WON_FORMAT("%원,d"),
+    WON_FORMAT("%,d"),
     TOTAL_DISCOUNTED_AMOUNT("<할인 후 예상 결제 금액>"),
     EVENT_BADGE("<12월 이벤트 배지>"),
     NOTHING("없음");

@@ -143,4 +143,9 @@ public class ChristmasEvent {
         }
         return NOTHING.getMessage();
     }
+
+    // 보류!!!
+    public Map<String, Integer> getDiscountDetails() {
+        return discountDetails;
+    }
 }

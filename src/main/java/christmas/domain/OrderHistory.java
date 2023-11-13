@@ -53,4 +53,9 @@ public class OrderHistory {
                 .mapToInt(order -> order.getValue())
                 .sum();
     }
+
+    // 보류
+    public Map<String, Integer> getOrders() {
+        return orders;
+    }
 }

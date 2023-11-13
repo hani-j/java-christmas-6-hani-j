@@ -14,7 +14,7 @@ public class Validator {
     private static final Pattern ORDER = Pattern.compile("^([가-힣]+-\\d,)*[가-힣]+-\\d$");
     private static final Pattern MENU = Pattern.compile("([가-힣]+)-(-?\\d+)");
 
-    public void validateDay(String number) {
+    public static void validateDay(String number) {
         try {
             validateNumber(number);
             validateNumberSize(number);
@@ -24,13 +24,13 @@ public class Validator {
         }
     }
 
-    private void validateNumber(String number) {
+    private static void validateNumber(String number) {
         if (!NUMBER.matcher(number).matches()) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void validateNumberSize(final String number) {
+    private static void validateNumberSize(final String number) {
         try {
             Integer.parseInt(number);
         } catch (Exception exception) {
@@ -38,7 +38,7 @@ public class Validator {
         }
     }
 
-    private void validateInRange(String number) {
+    private static void validateInRange(String number) {
         int day = Integer.parseInt(number);
 
         if (day < 1 || day > 31) {
@@ -46,13 +46,20 @@ public class Validator {
         }
     }
 
-    public void validateOrderFormat(String order) {
+    public static void validateOrder(Menu menu, String order) {
+        validateOrderFormat(order);
+        validateMenuAmount(order);
+        validateMenuDuplicate(order);
+        validateOnlyBeverage(menu, order);
+    }
+
+    public static void validateOrderFormat(String order) {
         if (!ORDER.matcher(order).matches()) {
             throw new IllegalArgumentException();
         }
     }
 
-    public void validateMenuAmount(String order) {
+    public static void validateMenuAmount(String order) {
         Matcher orderMatcher = MENU.matcher(order);
 
         while (orderMatcher.find()) {
@@ -61,20 +68,20 @@ public class Validator {
         }
     }
 
-    private void validateAmountRange(String number) {
+    private static void validateAmountRange(String number) {
         validateNumber(number);
         validateNumberSize(number);
         validateRange(number);
     }
 
-    private void validateRange(String number) {
+    private static void validateRange(String number) {
         int amount = Integer.parseInt(number);
         if (amount < 1) {
             throw new IllegalArgumentException();
         }
     }
 
-    public void validateMenuDuplicate(String order) {
+    public static void validateMenuDuplicate(String order) {
         Matcher orderMatcher = MENU.matcher(order);
         Set<String> menus = new HashSet<>();
         int menuCount = 0;
@@ -89,7 +96,7 @@ public class Validator {
         }
     }
 
-    public void validateOnlyBeverage(Menu menu, String order) {
+    public static void validateOnlyBeverage(Menu menu, String order) {
         Matcher orderMatcher = MENU.matcher(order);
 
         while (orderMatcher.find()) {
