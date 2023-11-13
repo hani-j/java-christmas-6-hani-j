@@ -114,7 +114,7 @@ public class Validator {
         throw new IllegalArgumentException();
     }
 
-    public static void validateQuantity(Menu menu, String order) {
+    public static void validateQuantity(String order) {
         Matcher orderMatcher = MENU.matcher(order);
         int sum = 0;
 
