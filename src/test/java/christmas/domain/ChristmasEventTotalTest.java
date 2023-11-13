@@ -1,7 +1,11 @@
 package christmas.domain;
 
+import static christmas.domain.event.DayType.SPECIAL_DAY;
 import static christmas.domain.event.DayType.WEEKDAY;
-import static christmas.domain.event.DayType.WEEKEND;
+import static christmas.domain.event.EventValue.D_DAY_ADD_AMOUNT;
+import static christmas.domain.event.EventValue.D_DAY_DIFFERENCE;
+import static christmas.domain.event.EventValue.D_DAY_DISCOUNT_AMOUNT;
+import static christmas.domain.event.EventValue.GIVEAWAY_AMOUNT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import christmas.domain.event.ChristmasEvent;
@@ -26,9 +30,10 @@ public class ChristmasEventTotalTest {
     public void getTotalDisCountAmount() {
         // given
         int day = 4;
+        int dessertQuantity = 3;
         orderHistory.addOrder(menu, "양송이수프", 1);
         orderHistory.addOrder(menu, "티본스테이크", 2);
-        orderHistory.addOrder(menu, "초코케이크", 3);
+        orderHistory.addOrder(menu, "초코케이크", dessertQuantity);
         orderHistory.addOrder(menu, "제로콜라", 4);
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
 
@@ -36,8 +41,15 @@ public class ChristmasEventTotalTest {
         int totalDisCountAmount = christmasEvent.getTotalBenefitAmount();
 
         // then
-        int expected = 1300 + 3 * WEEKDAY.getDiscountPrice() + 25000;
+        int expected =
+                getDDayDiscountAmount(day)
+                        + dessertQuantity * WEEKDAY.getDiscountPrice()
+                        + GIVEAWAY_AMOUNT.getValue();
         assertEquals(expected, totalDisCountAmount);
+    }
+
+    public int getDDayDiscountAmount(int day) {
+        return D_DAY_DISCOUNT_AMOUNT.getValue() + (day - D_DAY_DIFFERENCE.getValue()) * D_DAY_ADD_AMOUNT.getValue();
     }
 
     @DisplayName("주말 날짜가 들어왔을 때 총 혜택 금액을 반환한다.")
@@ -45,8 +57,9 @@ public class ChristmasEventTotalTest {
     public void getWeekendTotalDisCountAmount() {
         // given
         int day = 15;
+        int mainQuantity = 2;
         orderHistory.addOrder(menu, "양송이수프", 1);
-        orderHistory.addOrder(menu, "티본스테이크", 2);
+        orderHistory.addOrder(menu, "티본스테이크", mainQuantity);
         orderHistory.addOrder(menu, "초코케이크", 3);
         orderHistory.addOrder(menu, "제로콜라", 4);
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
@@ -55,7 +68,10 @@ public class ChristmasEventTotalTest {
         int totalDisCountAmount = christmasEvent.getTotalBenefitAmount();
 
         // then
-        int expected = 2400 + 2 * WEEKEND.getDiscountPrice() + 25000;
+        int expected =
+                getDDayDiscountAmount(day)
+                        + mainQuantity * WEEKDAY.getDiscountPrice()
+                        + GIVEAWAY_AMOUNT.getValue();
         assertEquals(expected, totalDisCountAmount);
     }
 
@@ -64,9 +80,10 @@ public class ChristmasEventTotalTest {
     public void getSpecialDayTotalDisCountAmount() {
         // given
         int day = 3;
+        int dessertQuantity = 2;
         orderHistory.addOrder(menu, "티본스테이크", 1);
         orderHistory.addOrder(menu, "바비큐립", 1);
-        orderHistory.addOrder(menu, "초코케이크", 2);
+        orderHistory.addOrder(menu, "초코케이크", dessertQuantity);
         orderHistory.addOrder(menu, "제로콜라", 1);
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
 
@@ -74,7 +91,11 @@ public class ChristmasEventTotalTest {
         int totalDisCountAmount = christmasEvent.getTotalBenefitAmount();
 
         // then
-        int expected = 31_246;
+        int expected =
+                getDDayDiscountAmount(day)
+                        + dessertQuantity * WEEKDAY.getDiscountPrice()
+                        + GIVEAWAY_AMOUNT.getValue()
+                        + SPECIAL_DAY.getDiscountPrice();
         assertEquals(expected, totalDisCountAmount);
     }
 
@@ -83,9 +104,10 @@ public class ChristmasEventTotalTest {
     public void getTotalDisCountedAmount() {
         // given
         int day = 3;
+        int dessertQuantity = 2;
         orderHistory.addOrder(menu, "티본스테이크", 1);
         orderHistory.addOrder(menu, "바비큐립", 1);
-        orderHistory.addOrder(menu, "초코케이크", 2);
+        orderHistory.addOrder(menu, "초코케이크", dessertQuantity);
         orderHistory.addOrder(menu, "제로콜라", 1);
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
 
@@ -93,7 +115,10 @@ public class ChristmasEventTotalTest {
         int totalDisCountedAmount = christmasEvent.getTotalDisCountedAmount(menu, orderHistory);
 
         // then
-        int expected = 135_754;
+        int expected = orderHistory.getTotalAmount(menu)
+                - getDDayDiscountAmount(day)
+                - dessertQuantity * WEEKDAY.getDiscountPrice()
+                - SPECIAL_DAY.getDiscountPrice();
         assertEquals(expected, totalDisCountedAmount);
     }
 }

@@ -2,6 +2,12 @@ package christmas.domain;
 
 import static christmas.domain.event.DayType.WEEKDAY;
 import static christmas.domain.event.DayType.WEEKEND;
+import static christmas.domain.event.EventMessage.SANTA_BADGE;
+import static christmas.domain.event.EventMessage.STAR_BADGE;
+import static christmas.domain.event.EventMessage.TREE_BADGE;
+import static christmas.domain.event.EventValue.D_DAY_ADD_AMOUNT;
+import static christmas.domain.event.EventValue.D_DAY_DIFFERENCE;
+import static christmas.domain.event.EventValue.D_DAY_DISCOUNT_AMOUNT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -159,48 +165,50 @@ public class ChristmasEventTest {
         int dDayDiscountAmount = christmasEvent.getDDayDiscountAmount(day);
 
         // then
-        int expected = 1000 + (day - 1) * 100;
+        int expected =
+                D_DAY_DISCOUNT_AMOUNT.getValue() + (day - D_DAY_DIFFERENCE.getValue()) * D_DAY_ADD_AMOUNT.getValue();
         assertEquals(expected, dDayDiscountAmount);
     }
 
-    @DisplayName("평일 날짜가 들어왔을 때 디저트 할인 금액을 반환한다.")
+    @DisplayName("평일 날짜가 들어왔을 때 디저트 메뉴 할인 금액을 반환한다.")
     @ParameterizedTest
     @ValueSource(ints = {4, 5, 6, 7, 11, 18, 26})
     public void getWeekdayDisCountAmount(int day) {
         // given
         Menu menu = new Menu();
         OrderHistory orderHistory = new OrderHistory();
+        int dessertQuantity = 3;
         orderHistory.addOrder(menu, "양송이수프", 1);
         orderHistory.addOrder(menu, "티본스테이크", 2);
-        orderHistory.addOrder(menu, "초코케이크", 3);
+        orderHistory.addOrder(menu, "초코케이크", dessertQuantity);
         orderHistory.addOrder(menu, "제로콜라", 4);
 
         // when
         int weekdayDisCountAmount = christmasEvent.getWeekdayDisCountAmount(menu, orderHistory);
 
         // then
-        int expected = 3 * WEEKDAY.getDiscountPrice();
+        int expected = dessertQuantity * WEEKDAY.getDiscountPrice();
         assertEquals(expected, weekdayDisCountAmount);
     }
 
-    @DisplayName("평일 날짜가 들어왔을 때 디저트 할인 금액을 반환한다.")
+    @DisplayName("주말 날짜가 들어왔을 때 메인 메뉴 할인 금액을 반환한다.")
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 8, 9, 15, 22, 29})
     public void getWeekendDisCountAmount(int day) {
         // given
         Menu menu = new Menu();
         OrderHistory orderHistory = new OrderHistory();
+        int mainQuantity = 3;
         orderHistory.addOrder(menu, "양송이수프", 1);
-        orderHistory.addOrder(menu, "티본스테이크", 2);
-        orderHistory.addOrder(menu, "바비큐립", 2);
+        orderHistory.addOrder(menu, "티본스테이크", mainQuantity);
         orderHistory.addOrder(menu, "초코케이크", 3);
-        orderHistory.addOrder(menu, "제로콜라", 4);
+        orderHistory.addOrder(menu, "제로콜라", 3);
 
         // when
         int weekdayDisCountAmount = christmasEvent.getWeekendDisCountAmount(menu, orderHistory);
 
         // then
-        int expected = 4 * WEEKEND.getDiscountPrice();
+        int expected = mainQuantity * WEEKEND.getDiscountPrice();
         assertEquals(expected, weekdayDisCountAmount);
     }
 
@@ -220,8 +228,7 @@ public class ChristmasEventTest {
         String eventBadge = christmasEvent.getEventBadge();
 
         // then
-        String expected = "별";
-        assertEquals(expected, eventBadge);
+        assertEquals(STAR_BADGE.getMessage(), eventBadge);
     }
 
     @DisplayName("총 혜택 금액이 1만원 이상 2만원 미만이면 트리을 반환한다.")
@@ -240,8 +247,7 @@ public class ChristmasEventTest {
         String eventBadge = christmasEvent.getEventBadge();
 
         // then
-        String expected = "트리";
-        assertEquals(expected, eventBadge);
+        assertEquals(TREE_BADGE.getMessage(), eventBadge);
     }
 
     @DisplayName("총 혜택 금액이 2만원 이상이면 산타를 반환한다.")
@@ -260,7 +266,6 @@ public class ChristmasEventTest {
         String eventBadge = christmasEvent.getEventBadge();
 
         // then
-        String expected = "산타";
-        assertEquals(expected, eventBadge);
+        assertEquals(SANTA_BADGE.getMessage(), eventBadge);
     }
 }

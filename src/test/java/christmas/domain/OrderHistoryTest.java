@@ -34,7 +34,8 @@ public class OrderHistoryTest {
         orderHistory.addOrder(menu, "제로콜라", 4);
 
         // then
-        assertEquals(10, orderHistory.getAllQuantity());
+        int total = 10;
+        assertEquals(total, orderHistory.getAllQuantity());
     }
 
     @DisplayName("없는 메뉴이면 주문내역에 추가하지 않고 throw 가 발생한다.")
