@@ -3,6 +3,9 @@ package christmas.util;
 import static christmas.domain.ErrorMessage.INVALID_DAY;
 import static christmas.domain.ErrorMessage.INVALID_ORDER;
 import static christmas.domain.menu.Category.BEVERAGE;
+import static christmas.util.EventPattern.MENU_PATTERN;
+import static christmas.util.EventPattern.NUMBER_PATTERN;
+import static christmas.util.EventPattern.ORDER_PATTERN;
 import static christmas.util.EventRule.FIRST_DAY;
 import static christmas.util.EventRule.INIT;
 import static christmas.util.EventRule.LAST_DAY;
@@ -15,13 +18,9 @@ import christmas.domain.menu.Menu;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class EventValidator {
 
-    private static final Pattern NUMBER_PATTERN = Pattern.compile("[0-9]+");
-    private static final Pattern ORDER_PATTERN = Pattern.compile("^([가-힣]+-\\d,)*[가-힣]+-\\d$");
-    private static final Pattern MENU_PATTERN = Pattern.compile("([가-힣]+)-(-?\\d+)");
 
     public static void validateDay(String number) {
         try {
@@ -61,6 +60,7 @@ public class EventValidator {
             validateMenuAmount(order);
             validateMenuDuplicate(order);
             validateOnlyBeverage(menu, order);
+            validateQuantity(order);
         } catch (Exception exception) {
             throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }

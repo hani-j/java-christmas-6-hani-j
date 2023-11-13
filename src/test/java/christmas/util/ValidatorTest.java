@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class ValidatorTest {
 
-    private Validator validator = new Validator();
+    private EventValidator validator = new EventValidator();
 
     @DisplayName("1-31 의 숫자인 경우 throw 가 발생하지 않는다.")
     @ParameterizedTest

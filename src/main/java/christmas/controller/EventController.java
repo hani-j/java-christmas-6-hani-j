@@ -1,21 +1,28 @@
 package christmas.controller;
 
+import static christmas.util.EventPattern.MENU_PATTERN;
+import static christmas.util.EventRule.MENU;
+import static christmas.util.EventRule.QUANTITY;
+
 import christmas.domain.OrderHistory;
 import christmas.domain.event.ChristmasEvent;
 import christmas.domain.menu.Menu;
-import christmas.util.Validator;
+import christmas.util.EventValidator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class EventController {
-    private static final Pattern MENU = Pattern.compile("([가-힣]+)-(-?\\d+)");
 
-    InputView inputView = new InputView();
-    OutputView outputView = new OutputView();
+    private final InputView inputView;
+    private final OutputView outputView;
     Menu menu = new Menu();
     OrderHistory orderHistory = new OrderHistory();
+
+    public EventController(InputView inputView, OutputView outputView) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+    }
 
     public void run() {
         outputView.printWelcomeMessage();
@@ -24,9 +31,16 @@ public class EventController {
         setOrder();
 
         outputView.printPreview(day);
+        printOrderHistory(day);
+        printEventDetails(day);
+    }
+
+    public void printOrderHistory(int day) {
         outputView.printOrderMenu(orderHistory.getOrders());
         outputView.printTotalAmount(orderHistory.getTotalAmount(menu));
+    }
 
+    public void printEventDetails(int day) {
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
         outputView.printGiveawayMenu(christmasEvent.getGiveaway(menu, orderHistory));
         outputView.printBenefitDetails(christmasEvent.getDiscountDetails());
@@ -38,7 +52,7 @@ public class EventController {
     public int getDay() {
         try {
             String day = inputView.inputDay();
-            Validator.validateDay(day);
+            EventValidator.validateDay(day);
             return Integer.parseInt(day);
         } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
@@ -49,7 +63,7 @@ public class EventController {
     public void setOrder() {
         try {
             String order = inputView.inputOrder();
-            Validator.validateOrder(menu, order);
+            EventValidator.validateOrder(menu, order);
             orderParser(order);
         } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
@@ -58,11 +72,11 @@ public class EventController {
     }
 
     public void orderParser(String order) {
-        Matcher orderMatcher = MENU.matcher(order);
+        Matcher orderMatcher = MENU_PATTERN.matcher(order);
 
         while (orderMatcher.find()) {
-            String name = orderMatcher.group(1);
-            String quantity = orderMatcher.group(2);
+            String name = orderMatcher.group(MENU.getValue());
+            String quantity = orderMatcher.group(QUANTITY.getValue());
             orderHistory.addOrder(menu, name, Integer.parseInt(quantity));
         }
     }
