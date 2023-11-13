@@ -1,6 +1,6 @@
 package christmas.domain.event;
 
-public enum Event {
+public enum EventValue {
     EVENT_TARGET(10_000),
     MAXIMUM_ORDER(20),
     D_DAY_TARGET(25),
@@ -14,7 +14,7 @@ public enum Event {
 
     private final int value;
 
-    Event(final int value) {
+    EventValue(final int value) {
         this.value = value;
     }
 

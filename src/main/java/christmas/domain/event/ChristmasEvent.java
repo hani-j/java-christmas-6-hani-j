@@ -4,13 +4,22 @@ import static christmas.domain.event.DayType.SPECIAL_DAY;
 import static christmas.domain.event.DayType.WEEKDAY;
 import static christmas.domain.event.DayType.WEEKEND;
 import static christmas.domain.event.DayType.getDayType;
-import static christmas.domain.event.Event.D_DAY_ADD_AMOUNT;
-import static christmas.domain.event.Event.D_DAY_DIFFERENCE;
-import static christmas.domain.event.Event.D_DAY_DISCOUNT_AMOUNT;
-import static christmas.domain.event.Event.D_DAY_TARGET;
-import static christmas.domain.event.Event.EVENT_TARGET;
-import static christmas.domain.event.Event.GIVEAWAY_AMOUNT;
-import static christmas.domain.event.Event.GIVEAWAY_TARGET;
+import static christmas.domain.event.EventMessage.D_DAY_DISCOUNT;
+import static christmas.domain.event.EventMessage.GIVEAWAY_EVENT;
+import static christmas.domain.event.EventMessage.NOTHING;
+import static christmas.domain.event.EventMessage.SANTA_BADGE;
+import static christmas.domain.event.EventMessage.SPECIAL_DISCOUNT;
+import static christmas.domain.event.EventMessage.STAR_BADGE;
+import static christmas.domain.event.EventMessage.TREE_BADGE;
+import static christmas.domain.event.EventMessage.WEEKDAY_DISCOUNT;
+import static christmas.domain.event.EventMessage.WEEKEND_DISCOUNT;
+import static christmas.domain.event.EventValue.D_DAY_ADD_AMOUNT;
+import static christmas.domain.event.EventValue.D_DAY_DIFFERENCE;
+import static christmas.domain.event.EventValue.D_DAY_DISCOUNT_AMOUNT;
+import static christmas.domain.event.EventValue.D_DAY_TARGET;
+import static christmas.domain.event.EventValue.EVENT_TARGET;
+import static christmas.domain.event.EventValue.GIVEAWAY_AMOUNT;
+import static christmas.domain.event.EventValue.GIVEAWAY_TARGET;
 
 import christmas.domain.OrderHistory;
 import christmas.domain.menu.Menu;
@@ -18,15 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChristmasEvent {
-    private final static String D_DAY_DISCOUNT = "크리스마스 디데이 할인";
-    private final static String WEEKDAY_DISCOUNT = "평일 할인";
-    private final static String WEEKEND_DISCOUNT = "주말 할인";
-    private final static String SPECIAL_DISCOUNT = "특별 할인";
-    private final static String GIVEAWAY_EVENT = "증정 이벤트";
-    private final static String STAR_BADGE = "별";
-    private final static String TREE_BADGE = "트리";
-    private final static String SANTA_BADGE = "산타";
-    private final static String NOTHING = "없음";
 
     private Map<String, Integer> discountDetails;
 
@@ -52,7 +52,7 @@ public class ChristmasEvent {
 
     public void applyDDayDiscount(final int day) {
         if (isDDayDiscount(day)) {
-            discountDetails.put(D_DAY_DISCOUNT, getDDayDiscountAmount(day));
+            discountDetails.put(D_DAY_DISCOUNT.getMessage(), getDDayDiscountAmount(day));
         }
     }
 
@@ -67,7 +67,7 @@ public class ChristmasEvent {
 
     public void applyWeekdayDiscount(final Menu menu, final OrderHistory orderHistory, final int day) {
         if (isWeekdayDiscount(day)) {
-            discountDetails.put(WEEKDAY_DISCOUNT, getWeekdayDisCountAmount(menu, orderHistory));
+            discountDetails.put(WEEKDAY_DISCOUNT.getMessage(), getWeekdayDisCountAmount(menu, orderHistory));
         }
     }
 
@@ -81,7 +81,7 @@ public class ChristmasEvent {
 
     public void applyWeekendDiscount(final Menu menu, final OrderHistory orderHistory, final int day) {
         if (isWeekendDiscount(day)) {
-            discountDetails.put(WEEKEND_DISCOUNT, getWeekendDisCountAmount(menu, orderHistory));
+            discountDetails.put(WEEKEND_DISCOUNT.getMessage(), getWeekendDisCountAmount(menu, orderHistory));
         }
     }
 
@@ -95,7 +95,7 @@ public class ChristmasEvent {
 
     public void applySpecialDiscount(final int day) {
         if (isSpecialDayDiscount(day)) {
-            discountDetails.put(SPECIAL_DISCOUNT, SPECIAL_DAY.getDiscountPrice());
+            discountDetails.put(SPECIAL_DISCOUNT.getMessage(), SPECIAL_DAY.getDiscountPrice());
         }
     }
 
@@ -105,7 +105,7 @@ public class ChristmasEvent {
 
     public void applyGiveawayDiscount(final Menu menu, final OrderHistory orderHistory) {
         if (isGiveawayTarget(orderHistory.getTotalAmount(menu))) {
-            discountDetails.put(GIVEAWAY_EVENT, GIVEAWAY_AMOUNT.getValue());
+            discountDetails.put(GIVEAWAY_EVENT.getMessage(), GIVEAWAY_AMOUNT.getValue());
         }
     }
 
@@ -121,7 +121,7 @@ public class ChristmasEvent {
 
     public final int getTotalDiscountAmount() {
         return discountDetails.entrySet().stream()
-                .filter(discount -> !discount.getKey().equals(GIVEAWAY_EVENT))
+                .filter(discount -> !discount.getKey().equals(GIVEAWAY_EVENT.getMessage()))
                 .mapToInt(discount -> discount.getValue())
                 .sum();
     }
@@ -133,14 +133,14 @@ public class ChristmasEvent {
     public final String getEventBadge() {
         int discountAmount = getTotalDiscountAmount();
         if (discountAmount >= 5000 && discountAmount < 10_000) {
-            return STAR_BADGE;
+            return STAR_BADGE.getMessage();
         }
         if (discountAmount >= 10_000 && discountAmount < 20_000) {
-            return TREE_BADGE;
+            return TREE_BADGE.getMessage();
         }
         if (discountAmount >= 20_000) {
-            return SANTA_BADGE;
+            return SANTA_BADGE.getMessage();
         }
-        return NOTHING;
+        return NOTHING.getMessage();
     }
 }
