@@ -8,6 +8,8 @@ import static christmas.view.OutputMessage.GIVEAWAY_MENU;
 import static christmas.view.OutputMessage.ORDER_MENU;
 import static christmas.view.OutputMessage.PREVIEW;
 import static christmas.view.OutputMessage.TOTAL_AMOUNT;
+import static christmas.view.OutputMessage.TOTAL_BENEFIT_AMOUNT;
+import static christmas.view.OutputMessage.WON_FORMAT;
 
 import java.util.Map;
 
@@ -38,5 +40,10 @@ public class OutputView {
         System.out.println(BENEFIT_DETAILS.getMessage());
         discountDetails.entrySet().stream()
                 .forEach(detail -> System.out.printf(DETAILS.getMessage(), detail.getKey(), detail.getValue()));
+    }
+
+    public void printTotalBenefitAmount(int amount) {
+        System.out.println(TOTAL_BENEFIT_AMOUNT.getMessage());
+        System.out.printf(String.format(WON_FORMAT.getMessage(), amount));
     }
 }
