@@ -1,5 +1,7 @@
 package christmas.util;
 
+import static christmas.domain.ErrorMessage.INVALID_DAY;
+import static christmas.domain.ErrorMessage.INVALID_ORDER;
 import static christmas.domain.menu.Category.BEVERAGE;
 
 import christmas.domain.menu.Menu;
@@ -20,7 +22,7 @@ public class Validator {
             validateNumberSize(number);
             validateInRange(number);
         } catch (Exception exception) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(INVALID_DAY.getMessage());
         }
     }
 
@@ -47,10 +49,14 @@ public class Validator {
     }
 
     public static void validateOrder(Menu menu, String order) {
-        validateOrderFormat(order);
-        validateMenuAmount(order);
-        validateMenuDuplicate(order);
-        validateOnlyBeverage(menu, order);
+        try {
+            validateOrderFormat(order);
+            validateMenuAmount(order);
+            validateMenuDuplicate(order);
+            validateOnlyBeverage(menu, order);
+        } catch (Exception exception) {
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
+        }
     }
 
     public static void validateOrderFormat(String order) {

@@ -2,10 +2,10 @@ package christmas.view;
 
 import static christmas.view.OutputMessage.AMOUNT;
 import static christmas.view.OutputMessage.BENEFIT_DETAILS;
-import static christmas.view.OutputMessage.CHAMPAGNE;
 import static christmas.view.OutputMessage.DETAILS;
 import static christmas.view.OutputMessage.EVENT_BADGE;
 import static christmas.view.OutputMessage.GIVEAWAY_MENU;
+import static christmas.view.OutputMessage.MINUS;
 import static christmas.view.OutputMessage.NOTHING;
 import static christmas.view.OutputMessage.ORDER_MENU;
 import static christmas.view.OutputMessage.PREVIEW;
@@ -24,8 +24,8 @@ public class OutputView {
         System.out.println(WELCOME_MESSAGE.getMessage());
     }
 
-    public void printPreview() {
-        System.out.println(PREVIEW.getMessage());
+    public void printPreview(int day) {
+        System.out.printf(PREVIEW.getMessage(), day);
         System.out.println();
     }
 
@@ -39,13 +39,17 @@ public class OutputView {
 
     public void printTotalAmount(int amount) {
         System.out.println(TOTAL_AMOUNT.getMessage());
-        System.out.printf(WON.getMessage(), String.format(WON_FORMAT.getMessage(), amount));
+        System.out.printf(WON.getMessage(), getWon(amount));
         System.out.println();
     }
 
-    public void printGiveawayMenu(String menu) {
+    private String getWon(int amount) {
+        return String.format(WON_FORMAT.getMessage(), amount);
+    }
+
+    public void printGiveawayMenu(String giveaway) {
         System.out.println(GIVEAWAY_MENU.getMessage());
-        System.out.println(CHAMPAGNE.getMessage());
+        System.out.println(giveaway);
         System.out.println();
     }
 
@@ -55,19 +59,22 @@ public class OutputView {
             System.out.println(NOTHING.getMessage());
         }
         discountDetails.entrySet().stream()
-                .forEach(detail -> System.out.printf(DETAILS.getMessage(), detail.getKey(), detail.getValue()));
+                .forEach(detail -> System.out.printf(DETAILS.getMessage(), detail.getKey(), getWon(detail.getValue())));
         System.out.println();
     }
 
-    public void printTotalDiscountAmount(int amount) {
+    public void printTotalBenefitAmount(int amount) {
         System.out.println(TOTAL_BENEFIT_AMOUNT.getMessage());
-        System.out.printf(WON.getMessage(), String.format(WON_FORMAT.getMessage(), amount));
+        if (amount != 0) {
+            System.out.printf(MINUS.getMessage());
+        }
+        System.out.printf(WON.getMessage(), getWon(amount));
         System.out.println();
     }
 
     public void printTotalDiscountedAmount(int amount) {
         System.out.println(TOTAL_DISCOUNTED_AMOUNT.getMessage());
-        System.out.printf(WON.getMessage(), String.format(WON_FORMAT.getMessage(), amount));
+        System.out.printf(WON.getMessage(), getWon(amount));
         System.out.println();
     }
 

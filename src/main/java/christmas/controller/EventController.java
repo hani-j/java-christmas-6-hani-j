@@ -22,29 +22,39 @@ public class EventController {
 
         int day = getDay();
         setOrder();
-        
-        outputView.printPreview();
+
+        outputView.printPreview(day);
         outputView.printOrderMenu(orderHistory.getOrders());
         outputView.printTotalAmount(orderHistory.getTotalAmount(menu));
 
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
-        outputView.printGiveawayMenu("없음");
+        outputView.printGiveawayMenu(christmasEvent.getGiveaway(menu, orderHistory));
         outputView.printBenefitDetails(christmasEvent.getDiscountDetails());
-        outputView.printTotalDiscountAmount(christmasEvent.getTotalDiscountAmount());
+        outputView.printTotalBenefitAmount(christmasEvent.getTotalBenefitAmount());
         outputView.printTotalDiscountedAmount(christmasEvent.getTotalDisCountedAmount(menu, orderHistory));
         outputView.printEventBadge(christmasEvent.getEventBadge());
     }
 
     public int getDay() {
-        String day = inputView.inputDay();
-        Validator.validateDay(day);
-        return Integer.parseInt(day);
+        try {
+            String day = inputView.inputDay();
+            Validator.validateDay(day);
+            return Integer.parseInt(day);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+            return getDay();
+        }
     }
 
     public void setOrder() {
-        String order = inputView.inputOrder();
-        Validator.validateOrder(menu, order);
-        orderParser(order);
+        try {
+            String order = inputView.inputOrder();
+            Validator.validateOrder(menu, order);
+            orderParser(order);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+            setOrder();
+        }
     }
 
     public void orderParser(String order) {

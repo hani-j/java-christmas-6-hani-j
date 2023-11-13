@@ -211,10 +211,10 @@ public class ChristmasEventTest {
         Menu menu = new Menu();
         OrderHistory orderHistory = new OrderHistory();
         orderHistory.addOrder(menu, "양송이수프", 1);
-        orderHistory.addOrder(menu, "티본스테이크", 2);
-        orderHistory.addOrder(menu, "초코케이크", 3);
-        orderHistory.addOrder(menu, "제로콜라", 4);
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 3);
+        orderHistory.addOrder(menu, "티본스테이크", 1);
+        orderHistory.addOrder(menu, "초코케이크", 1);
+        orderHistory.addOrder(menu, "제로콜라", 1);
+        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 17);
 
         // when
         String eventBadge = christmasEvent.getEventBadge();
@@ -230,11 +230,11 @@ public class ChristmasEventTest {
         // given
         Menu menu = new Menu();
         OrderHistory orderHistory = new OrderHistory();
-        orderHistory.addOrder(menu, "양송이수프", 5);
-        orderHistory.addOrder(menu, "티본스테이크", 5);
-        orderHistory.addOrder(menu, "초코케이크", 5);
-        orderHistory.addOrder(menu, "제로콜라", 5);
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 3);
+        orderHistory.addOrder(menu, "양송이수프", 1);
+        orderHistory.addOrder(menu, "티본스테이크", 1);
+        orderHistory.addOrder(menu, "초코케이크", 3);
+        orderHistory.addOrder(menu, "제로콜라", 1);
+        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 24);
 
         // when
         String eventBadge = christmasEvent.getEventBadge();

@@ -4,6 +4,7 @@ import static christmas.domain.event.DayType.SPECIAL_DAY;
 import static christmas.domain.event.DayType.WEEKDAY;
 import static christmas.domain.event.DayType.WEEKEND;
 import static christmas.domain.event.DayType.getDayType;
+import static christmas.domain.event.EventMessage.CHAMPAGNE;
 import static christmas.domain.event.EventMessage.D_DAY_DISCOUNT;
 import static christmas.domain.event.EventMessage.GIVEAWAY_EVENT;
 import static christmas.domain.event.EventMessage.NOTHING;
@@ -109,6 +110,13 @@ public class ChristmasEvent {
         }
     }
 
+    public String getGiveaway(final Menu menu, final OrderHistory orderHistory) {
+        if (isGiveawayTarget(orderHistory.getTotalAmount(menu))) {
+            return CHAMPAGNE.getMessage();
+        }
+        return NOTHING.getMessage();
+    }
+
     public final boolean isGiveawayTarget(final int amount) {
         return amount >= GIVEAWAY_TARGET.getValue();
     }
@@ -131,7 +139,7 @@ public class ChristmasEvent {
     }
 
     public final String getEventBadge() {
-        int discountAmount = getTotalDiscountAmount();
+        int discountAmount = getTotalBenefitAmount();
         if (discountAmount >= 5000 && discountAmount < 10_000) {
             return STAR_BADGE.getMessage();
         }

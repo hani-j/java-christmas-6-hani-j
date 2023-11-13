@@ -6,6 +6,7 @@ public enum EventMessage {
     WEEKEND_DISCOUNT("주말 할인"),
     SPECIAL_DISCOUNT("특별 할인"),
     GIVEAWAY_EVENT("증정 이벤트"),
+    CHAMPAGNE("샴페인 1개"),
     STAR_BADGE("별"),
     TREE_BADGE("트리"),
     SANTA_BADGE("산타"),
