@@ -217,7 +217,6 @@ public class ChristmasEventTest {
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 3);
 
         // when
-        System.out.println(christmasEvent.getTotalDiscountAmount());
         String eventBadge = christmasEvent.getEventBadge();
 
         // then
@@ -238,7 +237,6 @@ public class ChristmasEventTest {
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 3);
 
         // when
-        System.out.println(christmasEvent.getTotalDiscountAmount());
         String eventBadge = christmasEvent.getEventBadge();
 
         // then
@@ -259,7 +257,6 @@ public class ChristmasEventTest {
         ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 3);
 
         // when
-        System.out.println(christmasEvent.getTotalDiscountAmount());
         String eventBadge = christmasEvent.getEventBadge();
 
         // then
