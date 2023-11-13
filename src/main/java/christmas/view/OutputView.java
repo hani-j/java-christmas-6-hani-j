@@ -11,14 +11,19 @@ import static christmas.view.OutputMessage.PREVIEW;
 import static christmas.view.OutputMessage.TOTAL_AMOUNT;
 import static christmas.view.OutputMessage.TOTAL_BENEFIT_AMOUNT;
 import static christmas.view.OutputMessage.TOTAL_DISCOUNTED_AMOUNT;
+import static christmas.view.OutputMessage.WELCOME_MESSAGE;
 import static christmas.view.OutputMessage.WON_FORMAT;
 
 import java.util.Map;
 
 public class OutputView {
 
+    public void printWelcomeMessage() {
+        System.out.println(WELCOME_MESSAGE.getMessage());
+    }
+
     public void printPreview() {
-        System.out.println(PREVIEW);
+        System.out.println(PREVIEW.getMessage());
     }
 
     public void printOrderMenu(Map<String, Integer> orders) {
@@ -35,7 +40,7 @@ public class OutputView {
 
     public void printGiveawayMenu(String menu) {
         System.out.println(GIVEAWAY_MENU.getMessage());
-        System.out.println(CHAMPAGNE);
+        System.out.println(CHAMPAGNE.getMessage());
     }
 
     public void printBenefitDetails(Map<String, Integer> discountDetails) {
@@ -50,7 +55,7 @@ public class OutputView {
     }
 
     public void printTotalDiscountedAmount(int amount) {
-        System.out.println(TOTAL_DISCOUNTED_AMOUNT);
+        System.out.println(TOTAL_DISCOUNTED_AMOUNT.getMessage());
         System.out.println(String.format(WON_FORMAT.getMessage(), amount));
     }
 
