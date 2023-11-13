@@ -6,12 +6,14 @@ import static christmas.view.OutputMessage.CHAMPAGNE;
 import static christmas.view.OutputMessage.DETAILS;
 import static christmas.view.OutputMessage.EVENT_BADGE;
 import static christmas.view.OutputMessage.GIVEAWAY_MENU;
+import static christmas.view.OutputMessage.NOTHING;
 import static christmas.view.OutputMessage.ORDER_MENU;
 import static christmas.view.OutputMessage.PREVIEW;
 import static christmas.view.OutputMessage.TOTAL_AMOUNT;
 import static christmas.view.OutputMessage.TOTAL_BENEFIT_AMOUNT;
 import static christmas.view.OutputMessage.TOTAL_DISCOUNTED_AMOUNT;
 import static christmas.view.OutputMessage.WELCOME_MESSAGE;
+import static christmas.view.OutputMessage.WON;
 import static christmas.view.OutputMessage.WON_FORMAT;
 
 import java.util.Map;
@@ -37,7 +39,7 @@ public class OutputView {
 
     public void printTotalAmount(int amount) {
         System.out.println(TOTAL_AMOUNT.getMessage());
-        System.out.println(amount);
+        System.out.printf(WON.getMessage(), String.format(WON_FORMAT.getMessage(), amount));
         System.out.println();
     }
 
@@ -49,6 +51,9 @@ public class OutputView {
 
     public void printBenefitDetails(Map<String, Integer> discountDetails) {
         System.out.println(BENEFIT_DETAILS.getMessage());
+        if (discountDetails.size() == 0) {
+            System.out.println(NOTHING.getMessage());
+        }
         discountDetails.entrySet().stream()
                 .forEach(detail -> System.out.printf(DETAILS.getMessage(), detail.getKey(), detail.getValue()));
         System.out.println();
@@ -56,13 +61,13 @@ public class OutputView {
 
     public void printTotalDiscountAmount(int amount) {
         System.out.println(TOTAL_BENEFIT_AMOUNT.getMessage());
-        System.out.printf(String.format(WON_FORMAT.getMessage(), amount));
+        System.out.printf(WON.getMessage(), String.format(WON_FORMAT.getMessage(), amount));
         System.out.println();
     }
 
     public void printTotalDiscountedAmount(int amount) {
         System.out.println(TOTAL_DISCOUNTED_AMOUNT.getMessage());
-        System.out.println(String.format(WON_FORMAT.getMessage(), amount));
+        System.out.printf(WON.getMessage(), String.format(WON_FORMAT.getMessage(), amount));
         System.out.println();
     }
 
