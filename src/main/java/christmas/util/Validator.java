@@ -113,4 +113,17 @@ public class Validator {
         }
         throw new IllegalArgumentException();
     }
+
+    public static void validateQuantity(Menu menu, String order) {
+        Matcher orderMatcher = MENU.matcher(order);
+        int sum = 0;
+
+        while (orderMatcher.find()) {
+            String orderMenu = orderMatcher.group(2);
+            sum += Integer.parseInt(orderMenu);
+        }
+        if (sum > 20) {
+            throw new IllegalArgumentException();
+        }
+    }
 }
