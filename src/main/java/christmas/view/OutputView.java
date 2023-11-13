@@ -9,6 +9,7 @@ import static christmas.view.OutputMessage.ORDER_MENU;
 import static christmas.view.OutputMessage.PREVIEW;
 import static christmas.view.OutputMessage.TOTAL_AMOUNT;
 import static christmas.view.OutputMessage.TOTAL_BENEFIT_AMOUNT;
+import static christmas.view.OutputMessage.TOTAL_DISCOUNTED_AMOUNT;
 import static christmas.view.OutputMessage.WON_FORMAT;
 
 import java.util.Map;
@@ -45,5 +46,10 @@ public class OutputView {
     public void printTotalBenefitAmount(int amount) {
         System.out.println(TOTAL_BENEFIT_AMOUNT.getMessage());
         System.out.printf(String.format(WON_FORMAT.getMessage(), amount));
+    }
+
+    public void printTotalDiscountedAmount(int amount) {
+        System.out.println(TOTAL_DISCOUNTED_AMOUNT);
+        System.out.println(String.format(WON_FORMAT.getMessage(), amount));
     }
 }
