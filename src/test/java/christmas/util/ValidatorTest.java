@@ -84,4 +84,16 @@ public class ValidatorTest {
         assertThatThrownBy(() -> validator.validateOnlyBeverage(menu, order))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("주문 수량이 20개가 넘는 경우 Throw 가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"제로콜라-5", "제로콜라-5,레드와인-5,샴페인-6"})
+    void validateQuantity(String order) {
+        // given
+        Menu menu = new Menu();
+
+        // when & then
+        assertThatThrownBy(() -> validator.validateQuantity(menu, order))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
