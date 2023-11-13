@@ -202,4 +202,40 @@ public class ChristmasEventTest {
         int expected = 4 * WEEKEND.getDiscountPrice();
         assertEquals(expected, weekdayDisCountAmount);
     }
+
+    @DisplayName("총 혜택 금액이 5천원 이상 1만원 미만이면 별을 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {5000, 6000, 7000, 9999})
+    public void getEventBadge(int amount) {
+        // when
+        String eventBadge = christmasEvent.getEventBadge(amount);
+
+        // then
+        String expected = "별";
+        assertEquals(expected, eventBadge);
+    }
+
+    @DisplayName("총 혜택 금액이 1만원 이상 2만원 미만이면 트리을 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {10000, 16000, 17000, 19999})
+    public void getEventBadge(int amount) {
+        // when
+        String eventBadge = christmasEvent.getEventBadge(amount);
+
+        // then
+        String expected = "트리";
+        assertEquals(expected, eventBadge);
+    }
+
+    @DisplayName("총 혜택 금액이 2만원 이상이면 산타를 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {20000, 26000, 27000, 29999})
+    public void getEventBadge(int amount) {
+        // when
+        String eventBadge = christmasEvent.getEventBadge(amount);
+
+        // then
+        String expected = "산타";
+        assertEquals(expected, eventBadge);
+    }
 }
