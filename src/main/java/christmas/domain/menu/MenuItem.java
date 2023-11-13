@@ -1,5 +1,6 @@
 package christmas.domain.menu;
 
+import static christmas.domain.ErrorMessage.INVALID_ORDER;
 import static christmas.domain.menu.Category.APPETIZER;
 import static christmas.domain.menu.Category.BEVERAGE;
 import static christmas.domain.menu.Category.DESSERT;
@@ -39,6 +40,13 @@ public enum MenuItem {
         return Arrays.asList(MenuItem.values());
     }
 
+    public static Category getCategoryByName(String name) {
+        return getAllValues().stream()
+                .filter(menu -> menu.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_ORDER.getMessage()))
+                .getCategory();
+    }
 
     public final Category getCategory() {
         return category;

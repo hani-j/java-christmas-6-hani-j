@@ -81,7 +81,7 @@ public class ValidatorTest {
         Menu menu = new Menu();
 
         // when & then
-        assertThatThrownBy(() -> validator.validateOnlyBeverage(menu, order))
+        assertThatThrownBy(() -> validator.validateOnlyBeverage(order))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 

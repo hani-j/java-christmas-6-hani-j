@@ -14,7 +14,7 @@ import static christmas.util.EventRule.MENU;
 import static christmas.util.EventRule.MINIMUM_QUANTITY;
 import static christmas.util.EventRule.QUANTITY;
 
-import christmas.domain.menu.Menu;
+import christmas.domain.menu.MenuItem;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -54,12 +54,12 @@ public class EventValidator {
         }
     }
 
-    public static void validateOrder(Menu menu, String order) {
+    public static void validateOrder(String order) {
         try {
             validateOrderFormat(order);
             validateMenuAmount(order);
             validateMenuDuplicate(order);
-            validateOnlyBeverage(menu, order);
+            validateOnlyBeverage(order);
             validateQuantity(order);
         } catch (Exception exception) {
             throw new IllegalArgumentException(INVALID_ORDER.getMessage());
@@ -109,16 +109,19 @@ public class EventValidator {
         }
     }
 
-    public static void validateOnlyBeverage(Menu menu, String order) {
+    public static void validateOnlyBeverage(String order) {
         Matcher orderMatcher = MENU_PATTERN.matcher(order);
+        boolean onlyBeverage = true;
 
         while (orderMatcher.find()) {
             String orderMenu = orderMatcher.group(MENU.getValue());
-            if (menu.getCategory(orderMenu) != BEVERAGE) {
-                return;
+            if (MenuItem.getCategoryByName(orderMenu) != BEVERAGE) {
+                onlyBeverage = false;
             }
         }
-        throw new IllegalArgumentException();
+        if (onlyBeverage) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public static void validateQuantity(String order) {

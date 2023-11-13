@@ -1,52 +1,45 @@
 package christmas.controller;
 
-import static christmas.util.EventPattern.MENU_PATTERN;
-import static christmas.util.EventRule.MENU;
-import static christmas.util.EventRule.QUANTITY;
-
-import christmas.domain.OrderHistory;
-import christmas.domain.event.ChristmasEvent;
-import christmas.domain.menu.Menu;
+import christmas.service.EventService;
 import christmas.util.EventValidator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.util.regex.Matcher;
 
 public class EventController {
 
     private final InputView inputView;
     private final OutputView outputView;
-    Menu menu = new Menu();
-    OrderHistory orderHistory = new OrderHistory();
+    private final EventService eventService;
 
-    public EventController(InputView inputView, OutputView outputView) {
+    public EventController(InputView inputView, OutputView outputView, EventService eventService) {
         this.inputView = inputView;
         this.outputView = outputView;
+        this.eventService = eventService;
     }
 
     public void run() {
         outputView.printWelcomeMessage();
 
         int day = getDay();
-        setOrder();
+        String order = getOrder();
+        eventService.setOrder(day, order);
 
-        outputView.printPreview(day);
         printOrderHistory(day);
         printEventDetails(day);
     }
 
     public void printOrderHistory(int day) {
-        outputView.printOrderMenu(orderHistory.getOrders());
-        outputView.printTotalAmount(orderHistory.getTotalAmount(menu));
+        outputView.printPreview(day);
+        outputView.printOrderMenu(eventService.getOrders());
+        outputView.printTotalAmount(eventService.getTotalAmount());
     }
 
     public void printEventDetails(int day) {
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
-        outputView.printGiveawayMenu(christmasEvent.getGiveaway(menu, orderHistory));
-        outputView.printBenefitDetails(christmasEvent.getDiscountDetails());
-        outputView.printTotalBenefitAmount(christmasEvent.getTotalBenefitAmount());
-        outputView.printTotalDiscountedAmount(christmasEvent.getTotalDisCountedAmount(menu, orderHistory));
-        outputView.printEventBadge(christmasEvent.getEventBadge());
+        outputView.printGiveawayMenu(eventService.getGiveaway());
+        outputView.printBenefitDetails(eventService.getDiscountDetails());
+        outputView.printTotalBenefitAmount(eventService.getTotalBenefitAmount());
+        outputView.printTotalDiscountedAmount(eventService.getTotalDisCountedAmount());
+        outputView.printEventBadge(eventService.getEventBadge());
     }
 
     public int getDay() {
@@ -60,24 +53,16 @@ public class EventController {
         }
     }
 
-    public void setOrder() {
+    public String getOrder() {
         try {
             String order = inputView.inputOrder();
-            EventValidator.validateOrder(menu, order);
-            orderParser(order);
+            EventValidator.validateOrder(order);
+            return order;
         } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
-            setOrder();
+            return getOrder();
         }
     }
 
-    public void orderParser(String order) {
-        Matcher orderMatcher = MENU_PATTERN.matcher(order);
 
-        while (orderMatcher.find()) {
-            String name = orderMatcher.group(MENU.getValue());
-            String quantity = orderMatcher.group(QUANTITY.getValue());
-            orderHistory.addOrder(menu, name, Integer.parseInt(quantity));
-        }
-    }
 }
