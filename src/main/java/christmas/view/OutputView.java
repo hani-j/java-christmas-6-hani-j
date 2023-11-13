@@ -4,6 +4,7 @@ import static christmas.view.OutputMessage.AMOUNT;
 import static christmas.view.OutputMessage.BENEFIT_DETAILS;
 import static christmas.view.OutputMessage.CHAMPAGNE;
 import static christmas.view.OutputMessage.DETAILS;
+import static christmas.view.OutputMessage.EVENT_BADGE;
 import static christmas.view.OutputMessage.GIVEAWAY_MENU;
 import static christmas.view.OutputMessage.ORDER_MENU;
 import static christmas.view.OutputMessage.PREVIEW;
@@ -51,5 +52,10 @@ public class OutputView {
     public void printTotalDiscountedAmount(int amount) {
         System.out.println(TOTAL_DISCOUNTED_AMOUNT);
         System.out.println(String.format(WON_FORMAT.getMessage(), amount));
+    }
+
+    public void printEventBadge(String badge) {
+        System.out.println(EVENT_BADGE.getMessage());
+        System.out.println(badge);
     }
 }
