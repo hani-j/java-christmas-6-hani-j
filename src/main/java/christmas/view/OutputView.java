@@ -1,6 +1,7 @@
 package christmas.view;
 
 import static christmas.view.OutputMessage.AMOUNT;
+import static christmas.view.OutputMessage.GIVEAWAY_MENU;
 import static christmas.view.OutputMessage.ORDER_MENU;
 import static christmas.view.OutputMessage.PREVIEW;
 import static christmas.view.OutputMessage.TOTAL_AMOUNT;
@@ -23,5 +24,10 @@ public class OutputView {
     public void printTotalAmount(int amount) {
         System.out.println(TOTAL_AMOUNT);
         System.out.println(amount);
+    }
+
+    public void printGiveawayMenu(String menu) {
+        System.out.println(GIVEAWAY_MENU);
+        System.out.println(menu);
     }
 }
