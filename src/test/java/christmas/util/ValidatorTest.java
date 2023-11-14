@@ -22,7 +22,7 @@ public class ValidatorTest {
 
     @DisplayName("1-31 의 숫자가 아닌 경우 throw 가 발생한다.")
     @ParameterizedTest
-    @ValueSource(strings = {"1.", ".2", "ㄱ", "one", "32", "44"})
+    @ValueSource(strings = {"1.", ".2", "ㄱ", "one", "32", "44", "2147483648"})
     void validateNotDay(String day) {
         // when & then
         assertThatThrownBy(() -> validator.validateDay(day))
