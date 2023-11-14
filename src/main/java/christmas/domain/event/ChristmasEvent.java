@@ -24,6 +24,7 @@ import static christmas.domain.event.EventValue.GIVEAWAY_TARGET;
 
 import christmas.domain.OrderHistory;
 import christmas.domain.menu.Menu;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -153,6 +154,7 @@ public class ChristmasEvent {
     }
 
     public final Map<String, Integer> getDiscountDetails() {
-        return discountDetails;
+        Map<String, Integer> copyDiscountDetails = new HashMap<>(discountDetails);
+        return Collections.unmodifiableMap(copyDiscountDetails);
     }
 }

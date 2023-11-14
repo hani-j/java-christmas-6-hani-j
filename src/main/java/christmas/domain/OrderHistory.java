@@ -5,6 +5,7 @@ import static christmas.domain.menu.Category.DESSERT;
 
 import christmas.domain.menu.Category;
 import christmas.domain.menu.Menu;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +56,7 @@ public class OrderHistory {
     }
 
     public final Map<String, Integer> getOrders() {
-        return orders;
+        Map<String, Integer> copyOrders = new HashMap<>(orders);
+        return Collections.unmodifiableMap(copyOrders);
     }
 }
