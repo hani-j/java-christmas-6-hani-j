@@ -21,6 +21,9 @@ import static christmas.domain.event.EventValue.D_DAY_TARGET;
 import static christmas.domain.event.EventValue.EVENT_TARGET;
 import static christmas.domain.event.EventValue.GIVEAWAY_AMOUNT;
 import static christmas.domain.event.EventValue.GIVEAWAY_TARGET;
+import static christmas.domain.event.EventValue.SANTA_BADGE_MINIMUM;
+import static christmas.domain.event.EventValue.STAR_BADGE_MINIMUM;
+import static christmas.domain.event.EventValue.TREE_BADGE_MINIMUM;
 
 import christmas.domain.OrderHistory;
 import christmas.domain.menu.Menu;
@@ -141,13 +144,13 @@ public class ChristmasEvent {
 
     public final String getEventBadge() {
         final int discountAmount = getTotalBenefitAmount();
-        if (discountAmount >= 5000 && discountAmount < 10_000) {
+        if (discountAmount >= STAR_BADGE_MINIMUM.getValue() && discountAmount < TREE_BADGE_MINIMUM.getValue()) {
             return STAR_BADGE.getMessage();
         }
-        if (discountAmount >= 10_000 && discountAmount < 20_000) {
+        if (discountAmount >= TREE_BADGE_MINIMUM.getValue() && discountAmount < SANTA_BADGE_MINIMUM.getValue()) {
             return TREE_BADGE.getMessage();
         }
-        if (discountAmount >= 20_000) {
+        if (discountAmount >= SANTA_BADGE_MINIMUM.getValue()) {
             return SANTA_BADGE.getMessage();
         }
         return NOTHING.getMessage();
