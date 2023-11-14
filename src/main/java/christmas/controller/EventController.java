@@ -18,12 +18,20 @@ public class EventController {
     }
 
     public void run() {
+        setEvent();
+        showBenefitPreview();
+    }
+
+    public void setEvent() {
         outputView.printWelcomeMessage();
 
         final int day = getDay();
         eventService.setOrder(day, getOrder());
 
         outputView.printPreview(day);
+    }
+
+    public void showBenefitPreview() {
         printOrderHistory();
         printEventDetails();
     }
@@ -42,26 +50,34 @@ public class EventController {
     }
 
     public final int getDay() {
-        try {
-            String day = inputView.inputDay();
-            EventValidator.validateDay(day);
-            return Integer.parseInt(day);
-        } catch (IllegalArgumentException exception) {
-            System.out.println(exception.getMessage());
-            return getDay();
-        }
+        boolean isRepeat = true;
+        String day;
+
+        do {
+            day = inputView.inputDay();
+            try {
+                EventValidator.validateDay(day);
+                isRepeat = false;
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
+        } while (isRepeat);
+        return Integer.parseInt(day);
     }
 
     public final String getOrder() {
-        try {
-            String order = inputView.inputOrder();
-            EventValidator.validateOrder(order);
-            return order;
-        } catch (IllegalArgumentException exception) {
-            System.out.println(exception.getMessage());
-            return getOrder();
-        }
+        boolean isRepeat = true;
+        String order;
+
+        do {
+            order = inputView.inputOrder();
+            try {
+                EventValidator.validateOrder(order);
+                isRepeat = false;
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
+        } while (isRepeat);
+        return order;
     }
-
-
 }
