@@ -1,6 +1,4 @@
-package christmas.domain;
-
-import christmas.domain.menu.Category;
+package christmas.domain.menu;
 
 public record Product(Category category, int price) {
 }

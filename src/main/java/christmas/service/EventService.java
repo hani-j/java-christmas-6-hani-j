@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 public class EventService {
     private final Menu menu;
     private final OrderHistory orderHistory;
-    private ChristmasEvent christmasEvent;
+    private final ChristmasEvent christmasEvent;
 
     public EventService(final Menu menu, final OrderHistory orderHistory, ChristmasEvent christmasEvent) {
         this.menu = menu;
@@ -26,7 +26,7 @@ public class EventService {
         christmasEvent.applyDiscount(menu, orderHistory, day);
     }
 
-    public void orderParser(final String order) {
+    private void orderParser(final String order) {
         final Matcher orderMatcher = MENU_PATTERN.matcher(order);
 
         while (orderMatcher.find()) {

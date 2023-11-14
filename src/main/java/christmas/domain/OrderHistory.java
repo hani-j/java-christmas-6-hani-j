@@ -56,7 +56,6 @@ public class OrderHistory {
     }
 
     public final Map<String, Integer> getOrders() {
-        Map<String, Integer> copyOrders = new HashMap<>(orders);
-        return Collections.unmodifiableMap(copyOrders);
+        return Collections.unmodifiableMap(orders);
     }
 }

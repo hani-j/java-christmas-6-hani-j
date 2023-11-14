@@ -2,7 +2,6 @@ package christmas.domain.menu;
 
 import static christmas.domain.ErrorMessage.INVALID_ORDER;
 
-import christmas.domain.Product;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ public class Menu {
         });
     }
 
-    public final Product getProduct(final String name) {
+    private Product getProduct(final String name) {
         Product product = products.get(name);
         if (product == null) {
             throw new IllegalArgumentException(INVALID_ORDER.getMessage());

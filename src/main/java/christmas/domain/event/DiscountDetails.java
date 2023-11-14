@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DiscountDetails {
-
     private final Map<String, Integer> discountDetails;
 
     public DiscountDetails() {
@@ -38,7 +37,6 @@ public class DiscountDetails {
     }
 
     public final Map<String, Integer> getDiscountDetails() {
-        Map<String, Integer> copyDetails = new HashMap<>(discountDetails);
-        return Collections.unmodifiableMap(copyDetails);
+        return Collections.unmodifiableMap(discountDetails);
     }
 }

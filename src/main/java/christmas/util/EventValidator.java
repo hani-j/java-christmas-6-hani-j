@@ -21,7 +21,6 @@ import java.util.regex.Matcher;
 
 public class EventValidator {
 
-
     public static void validateDay(final String number) {
         try {
             validateNumber(number);
