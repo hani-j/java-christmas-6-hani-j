@@ -144,6 +144,105 @@ Windows : `gradlew.bat clean test` 또는 `./gradlew.bat clean test`
     - InputView
     - OutputView
 
+```mermaid
+classDiagram
+    Application --> EventController
+    EventController --> InputView
+    EventController --> EventService
+    EventController --> OutputView
+    EventService --> Menu
+    EventService --> OrderHistory
+    EventService --> ChristmasEvent
+    ChristmasEvent --> DiscountDetails
+    ChristmasEvent --> DiscountCalculator
+    ChristmasEvent --> BadgeCalculator
+    Menu --> Product
+
+    class Application {
+        new EventController
+        new EventService
+        new ChristmasEvent
+    }
+    class EventController{
+      - EventService EventController
+      - InputView inputView
+      - OutputView outputView
+      + EventController(InputView inputView, OutputView outputView, EventService EventService)
+      + run()
+      - buyLotto()
+      - setWinningNumber()
+      - showResults()
+    }
+    class InputView{
+      + inputDay()
+      + inputOrder()
+    }
+    class OutputView{
+      + printWelcomeMessage()
+      + printPreview()
+      + printOrderMenu()
+      + printTotalAmount()
+      + printGiveawayMenu()
+      + printBenefitDetails()
+      + printTotalBenefitAmount()
+      + printTotalDiscountedAmount()
+      + printEventBadge()
+    }
+    class Menu{
+        - Map<String, Product> products;
+        - initMenu()
+        + validateNameInMenu()
+    }
+    class Product{
+        - Category Category
+        - int price
+    }
+    class OrderHistory {
+        - Map<String, Integer> orders
+        + addOrder()
+        + validateOrder()
+    }
+    class EventService {
+        - Menu menu
+        - OrderHistory orderHistory
+        - ChristmasEvent christmasEvent
+        + EventService(Menu menu, OrderHistory orderHistory, ChristmasEvent christmasEvent)
+        + setOrder()
+
+    }
+    class ChristmasEvent{
+        - DiscountDetails discountDetails
+        - DiscountCalculator discountCalculator
+        - BadgeCalculator badgeCalculator
+        + applyDDayDiscount()
+        + applyWeekdayDiscount()
+        + applyWeekendDiscount()
+        + applySpecialDiscount()
+        + applyGiveawayDiscount()
+    }
+    class DiscountDetails{
+        - Map<String, Integer> discountDetails
+        + addDiscount()
+    }
+    class DiscountCalculator{
+        + calculateDDayDiscount()
+        + calculateWeekdayDiscount()
+        + calculateWeekendDiscount()
+    }
+    class BadgeCalculator{
+        + calculateEventBadge()
+    }
+    class EventPattern {
+        + Pattern NUMBER_PATTERN
+        + Pattern ORDER_PATTERN
+        + Pattern MENU_PATTERN
+    }
+    class EventValidator {
+        + validateDay()
+        + validateOrder()
+    }
+```
+
 ### 🚀 달성 목표
 
 - TDD 사용해보기
