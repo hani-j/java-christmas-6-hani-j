@@ -10,7 +10,7 @@ import static christmas.domain.event.EventValue.TREE_BADGE_MINIMUM;
 
 public class BadgeCalculator {
 
-    public final String calculateEventBadge(int discountAmount) {
+    public final String calculateEventBadge(final int discountAmount) {
         if (discountAmount >= STAR_BADGE_MINIMUM.getValue() && discountAmount < TREE_BADGE_MINIMUM.getValue()) {
             return STAR_BADGE.getMessage();
         }

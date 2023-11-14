@@ -22,9 +22,9 @@ import java.util.Map;
 
 public class ChristmasEvent {
 
-    DiscountDetails discountDetails;
-    DiscountCalculator discountCalculator;
-    BadgeCalculator badgeCalculator;
+    private final DiscountDetails discountDetails;
+    private final DiscountCalculator discountCalculator;
+    private final BadgeCalculator badgeCalculator;
 
     public ChristmasEvent(final DiscountDetails discountDetails, final DiscountCalculator discountCalculator,
                           final BadgeCalculator badgeCalculator) {

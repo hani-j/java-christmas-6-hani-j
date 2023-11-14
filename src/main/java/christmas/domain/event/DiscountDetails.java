@@ -16,12 +16,8 @@ public class DiscountDetails {
         this.discountDetails = new HashMap<>();
     }
 
-    public void addDiscount(EventMessage eventMessage, int discountAmount) {
+    public void addDiscount(final EventMessage eventMessage, final int discountAmount) {
         discountDetails.put(eventMessage.getMessage(), discountAmount);
-    }
-
-    public Map<String, Integer> getDiscountDetails() {
-        return Collections.unmodifiableMap(discountDetails);
     }
 
     public final int getTotalBenefitAmount() {
@@ -39,5 +35,10 @@ public class DiscountDetails {
 
     public final int getTotalDisCountedAmount(final Menu menu, final OrderHistory orderHistory) {
         return orderHistory.getTotalAmount(menu) - getTotalDiscountAmount();
+    }
+
+    public final Map<String, Integer> getDiscountDetails() {
+        Map<String, Integer> copyDetails = new HashMap<>(discountDetails);
+        return Collections.unmodifiableMap(copyDetails);
     }
 }
