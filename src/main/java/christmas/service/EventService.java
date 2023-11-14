@@ -15,14 +15,15 @@ public class EventService {
     private final OrderHistory orderHistory;
     private ChristmasEvent christmasEvent;
 
-    public EventService(final Menu menu, final OrderHistory orderHistory) {
+    public EventService(final Menu menu, final OrderHistory orderHistory, ChristmasEvent christmasEvent) {
         this.menu = menu;
         this.orderHistory = orderHistory;
+        this.christmasEvent = christmasEvent;
     }
 
     public void setOrder(final int day, final String order) {
         orderParser(order);
-        christmasEvent = new ChristmasEvent(menu, orderHistory, day);
+        christmasEvent.applyDiscount(menu, orderHistory, day);
     }
 
     public void orderParser(final String order) {

@@ -1,18 +1,16 @@
 package christmas.domain;
 
-import static christmas.domain.event.DayType.WEEKDAY;
-import static christmas.domain.event.DayType.WEEKEND;
 import static christmas.domain.event.EventMessage.SANTA_BADGE;
 import static christmas.domain.event.EventMessage.STAR_BADGE;
 import static christmas.domain.event.EventMessage.TREE_BADGE;
-import static christmas.domain.event.EventValue.D_DAY_ADD_AMOUNT;
-import static christmas.domain.event.EventValue.D_DAY_DIFFERENCE;
-import static christmas.domain.event.EventValue.D_DAY_DISCOUNT_AMOUNT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import christmas.domain.event.BadgeCalculator;
 import christmas.domain.event.ChristmasEvent;
+import christmas.domain.event.DiscountCalculator;
+import christmas.domain.event.DiscountDetails;
 import christmas.domain.menu.Menu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,13 +21,19 @@ public class ChristmasEventTest {
 
     private Menu menu = new Menu();
     private OrderHistory orderHistory = new OrderHistory();
-    private ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 1);
+    private ChristmasEvent christmasEvent = new ChristmasEvent(
+            new DiscountDetails(),
+            new DiscountCalculator(),
+            new BadgeCalculator());
 
     @DisplayName("총 주문 금액이 10,000원 이상이면 이벤트 대상 여부가 true 이다.")
     @ParameterizedTest
     @ValueSource(ints = {10_000, 20_000, 100_000, 200_000})
     public void isEventTarget(int amount) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, 1);
+
+        // when
         boolean isEventTarget = christmasEvent.isNotEventTarget(amount);
 
         // then
@@ -40,7 +44,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {9_999, 1000, 2000, 5000})
     public void isNotEventTarget(int amount) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, 1);
+
+        // when
         boolean isNotEventTarget = christmasEvent.isNotEventTarget(amount);
 
         // then
@@ -51,7 +58,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 10, 14, 25})
     public void isDDayDiscount(int day) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, day);
+
+        // when
         boolean isDDay = christmasEvent.isDDayDiscount(day);
 
         // then
@@ -62,7 +72,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {26, 27, 28, 29, 30, 31})
     public void isNotDDayDiscount(int day) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, day);
+
+        // when
         boolean isNotDDay = christmasEvent.isDDayDiscount(day);
 
         // then
@@ -73,7 +86,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 20, 21, 26, 27, 28})
     public void isWeekdayDiscount(int day) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, day);
+
+        // when
         boolean isWeekday = christmasEvent.isWeekdayDiscount(day);
 
         // then
@@ -84,7 +100,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
     public void isNotWeekdayDiscount(int day) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, day);
+
+        // when
         boolean isNotWeekday = christmasEvent.isWeekdayDiscount(day);
 
         // then
@@ -95,7 +114,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
     public void isWeekendDiscount(int day) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, day);
+
+        // when
         boolean isWeekend = christmasEvent.isWeekendDiscount(day);
 
         // then
@@ -106,7 +128,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28})
     public void isNotWeekendDiscount(int day) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, day);
+
+        // when
         boolean isNotWeekend = christmasEvent.isWeekendDiscount(day);
 
         // then
@@ -117,7 +142,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {3, 10, 17, 24, 25, 31})
     public void isSpecialDayDiscount(int day) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, day);
+
+        // when
         boolean isWeekend = christmasEvent.isSpecialDayDiscount(day);
 
         // then
@@ -128,7 +156,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 4, 5, 8, 9, 11, 15, 16, 18, 22, 23, 26, 29, 30})
     public void isNotSpecialDayDiscount(int day) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, day);
+
+        // when
         boolean isNotWeekend = christmasEvent.isSpecialDayDiscount(day);
 
         // then
@@ -139,7 +170,10 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {120_000, 130_000, 140_000, 150_000})
     public void isGiveawayTarget(int amount) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, 1);
+
+        // when
         boolean isGiveawayTarget = christmasEvent.isGiveawayTarget(amount);
 
         // then
@@ -150,66 +184,14 @@ public class ChristmasEventTest {
     @ParameterizedTest
     @ValueSource(ints = {119_999, 1, 1000, 10_000})
     public void isNotGiveawayTarget(int amount) {
-        // given & when
+        // given
+        christmasEvent.applyDiscount(menu, orderHistory, 1);
+
+        // when
         boolean isNotGiveawayTarget = christmasEvent.isGiveawayTarget(amount);
 
         // then
         assertFalse(isNotGiveawayTarget);
-    }
-
-    @DisplayName("크리스마스 디데이 할인 금액을 반환한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3, 4, 23, 24, 25})
-    public void getDDayDiscountAmount(int day) {
-        // when
-        int dDayDiscountAmount = christmasEvent.getDDayDiscountAmount(day);
-
-        // then
-        int expected =
-                D_DAY_DISCOUNT_AMOUNT.getValue() + (day - D_DAY_DIFFERENCE.getValue()) * D_DAY_ADD_AMOUNT.getValue();
-        assertEquals(expected, dDayDiscountAmount);
-    }
-
-    @DisplayName("평일 날짜가 들어왔을 때 디저트 메뉴 할인 금액을 반환한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {4, 5, 6, 7, 11, 18, 26})
-    public void getWeekdayDisCountAmount(int day) {
-        // given
-        Menu menu = new Menu();
-        OrderHistory orderHistory = new OrderHistory();
-        int dessertQuantity = 3;
-        orderHistory.addOrder(menu, "양송이수프", 1);
-        orderHistory.addOrder(menu, "티본스테이크", 2);
-        orderHistory.addOrder(menu, "초코케이크", dessertQuantity);
-        orderHistory.addOrder(menu, "제로콜라", 4);
-
-        // when
-        int weekdayDisCountAmount = christmasEvent.getWeekdayDisCountAmount(menu, orderHistory);
-
-        // then
-        int expected = dessertQuantity * WEEKDAY.getDiscountPrice();
-        assertEquals(expected, weekdayDisCountAmount);
-    }
-
-    @DisplayName("주말 날짜가 들어왔을 때 메인 메뉴 할인 금액을 반환한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2, 8, 9, 15, 22, 29})
-    public void getWeekendDisCountAmount(int day) {
-        // given
-        Menu menu = new Menu();
-        OrderHistory orderHistory = new OrderHistory();
-        int mainQuantity = 3;
-        orderHistory.addOrder(menu, "양송이수프", 1);
-        orderHistory.addOrder(menu, "티본스테이크", mainQuantity);
-        orderHistory.addOrder(menu, "초코케이크", 3);
-        orderHistory.addOrder(menu, "제로콜라", 3);
-
-        // when
-        int weekdayDisCountAmount = christmasEvent.getWeekendDisCountAmount(menu, orderHistory);
-
-        // then
-        int expected = mainQuantity * WEEKEND.getDiscountPrice();
-        assertEquals(expected, weekdayDisCountAmount);
     }
 
     @DisplayName("총 혜택 금액이 5천원 이상 1만원 미만이면 별을 반환한다.")
@@ -222,7 +204,7 @@ public class ChristmasEventTest {
         orderHistory.addOrder(menu, "티본스테이크", 1);
         orderHistory.addOrder(menu, "초코케이크", 1);
         orderHistory.addOrder(menu, "제로콜라", 1);
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 17);
+        christmasEvent.applyDiscount(menu, orderHistory, 17);
 
         // when
         String eventBadge = christmasEvent.getEventBadge();
@@ -241,7 +223,7 @@ public class ChristmasEventTest {
         orderHistory.addOrder(menu, "티본스테이크", 1);
         orderHistory.addOrder(menu, "초코케이크", 3);
         orderHistory.addOrder(menu, "제로콜라", 1);
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 24);
+        christmasEvent.applyDiscount(menu, orderHistory, 25);
 
         // when
         String eventBadge = christmasEvent.getEventBadge();
@@ -260,7 +242,7 @@ public class ChristmasEventTest {
         orderHistory.addOrder(menu, "티본스테이크", 3);
         orderHistory.addOrder(menu, "초코케이크", 10);
         orderHistory.addOrder(menu, "제로콜라", 2);
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 3);
+        christmasEvent.applyDiscount(menu, orderHistory, 17);
 
         // when
         String eventBadge = christmasEvent.getEventBadge();

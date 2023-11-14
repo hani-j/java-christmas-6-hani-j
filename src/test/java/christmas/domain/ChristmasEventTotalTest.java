@@ -8,7 +8,10 @@ import static christmas.domain.event.EventValue.D_DAY_DISCOUNT_AMOUNT;
 import static christmas.domain.event.EventValue.GIVEAWAY_AMOUNT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import christmas.domain.event.BadgeCalculator;
 import christmas.domain.event.ChristmasEvent;
+import christmas.domain.event.DiscountCalculator;
+import christmas.domain.event.DiscountDetails;
 import christmas.domain.menu.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,10 +22,16 @@ public class ChristmasEventTotalTest {
     private Menu menu;
     private OrderHistory orderHistory;
 
+    private ChristmasEvent christmasEvent;
+
     @BeforeEach
     void setUp() {
         menu = new Menu();
         orderHistory = new OrderHistory();
+        christmasEvent = new ChristmasEvent(
+                new DiscountDetails(),
+                new DiscountCalculator(),
+                new BadgeCalculator());
     }
 
     @DisplayName("평일 날짜가 들어왔을 때 총 혜택 금액을 반환한다.")
@@ -35,7 +44,7 @@ public class ChristmasEventTotalTest {
         orderHistory.addOrder(menu, "티본스테이크", 2);
         orderHistory.addOrder(menu, "초코케이크", dessertQuantity);
         orderHistory.addOrder(menu, "제로콜라", 4);
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
+        christmasEvent.applyDiscount(menu, orderHistory, day);
 
         // when
         int totalDisCountAmount = christmasEvent.getTotalBenefitAmount();
@@ -62,7 +71,7 @@ public class ChristmasEventTotalTest {
         orderHistory.addOrder(menu, "티본스테이크", mainQuantity);
         orderHistory.addOrder(menu, "초코케이크", 3);
         orderHistory.addOrder(menu, "제로콜라", 4);
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
+        christmasEvent.applyDiscount(menu, orderHistory, day);
 
         // when
         int totalDisCountAmount = christmasEvent.getTotalBenefitAmount();
@@ -85,7 +94,7 @@ public class ChristmasEventTotalTest {
         orderHistory.addOrder(menu, "바비큐립", 1);
         orderHistory.addOrder(menu, "초코케이크", dessertQuantity);
         orderHistory.addOrder(menu, "제로콜라", 1);
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
+        christmasEvent.applyDiscount(menu, orderHistory, day);
 
         // when
         int totalDisCountAmount = christmasEvent.getTotalBenefitAmount();
@@ -109,7 +118,7 @@ public class ChristmasEventTotalTest {
         orderHistory.addOrder(menu, "바비큐립", 1);
         orderHistory.addOrder(menu, "초코케이크", dessertQuantity);
         orderHistory.addOrder(menu, "제로콜라", 1);
-        ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, day);
+        christmasEvent.applyDiscount(menu, orderHistory, day);
 
         // when
         int totalDisCountedAmount = christmasEvent.getTotalDisCountedAmount(menu, orderHistory);
