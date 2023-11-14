@@ -19,7 +19,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class MenuTest {
 
-    Menu menu = new Menu();
+    private Menu menu = new Menu();
 
     @DisplayName("메뉴에 있는 이름이면 true 를 반환한다.")
     @ParameterizedTest

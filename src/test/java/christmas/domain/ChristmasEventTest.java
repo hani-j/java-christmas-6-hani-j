@@ -21,9 +21,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class ChristmasEventTest {
 
-    Menu menu = new Menu();
-    OrderHistory orderHistory = new OrderHistory();
-    ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 1);
+    private Menu menu = new Menu();
+    private OrderHistory orderHistory = new OrderHistory();
+    private ChristmasEvent christmasEvent = new ChristmasEvent(menu, orderHistory, 1);
 
     @DisplayName("총 주문 금액이 10,000원 이상이면 이벤트 대상 여부가 true 이다.")
     @ParameterizedTest
