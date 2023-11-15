@@ -19,12 +19,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class ChristmasEventTest {
 
-    private Menu menu = new Menu();
-    private OrderHistory orderHistory = new OrderHistory();
-    private ChristmasEvent christmasEvent = new ChristmasEvent(
-            new DiscountDetails(),
-            new DiscountCalculator(),
-            new BadgeCalculator());
+    private Menu menu = Menu.create();
+    private OrderHistory orderHistory = OrderHistory.create();
+    private ChristmasEvent christmasEvent = ChristmasEvent.of(
+            DiscountDetails.create(), DiscountCalculator.create(), BadgeCalculator.create());
 
     @DisplayName("총 주문 금액이 10,000원 이상이면 이벤트 대상 여부가 true 이다.")
     @ParameterizedTest
@@ -198,8 +196,8 @@ public class ChristmasEventTest {
     @Test
     public void getStarEventBadge() {
         // given
-        Menu menu = new Menu();
-        OrderHistory orderHistory = new OrderHistory();
+        Menu menu = Menu.create();
+        OrderHistory orderHistory = OrderHistory.create();
         orderHistory.addOrder(menu, "양송이수프", 1);
         orderHistory.addOrder(menu, "티본스테이크", 1);
         orderHistory.addOrder(menu, "초코케이크", 1);
@@ -217,8 +215,8 @@ public class ChristmasEventTest {
     @Test
     public void getTreeEventBadge() {
         // given
-        Menu menu = new Menu();
-        OrderHistory orderHistory = new OrderHistory();
+        Menu menu = Menu.create();
+        OrderHistory orderHistory = OrderHistory.create();
         orderHistory.addOrder(menu, "양송이수프", 1);
         orderHistory.addOrder(menu, "티본스테이크", 1);
         orderHistory.addOrder(menu, "초코케이크", 3);
@@ -236,8 +234,8 @@ public class ChristmasEventTest {
     @Test
     public void getSantaEventBadge() {
         // given
-        Menu menu = new Menu();
-        OrderHistory orderHistory = new OrderHistory();
+        Menu menu = Menu.create();
+        OrderHistory orderHistory = OrderHistory.create();
         orderHistory.addOrder(menu, "양송이수프", 2);
         orderHistory.addOrder(menu, "티본스테이크", 3);
         orderHistory.addOrder(menu, "초코케이크", 10);

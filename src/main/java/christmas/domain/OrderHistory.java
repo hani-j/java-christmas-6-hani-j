@@ -12,8 +12,12 @@ import java.util.Map;
 public class OrderHistory {
     private final Map<String, Integer> orders;
 
-    public OrderHistory() {
+    private OrderHistory() {
         this.orders = new HashMap<>();
+    }
+
+    public static OrderHistory create() {
+        return new OrderHistory();
     }
 
     public void addOrder(final Menu menu, final String name, final Integer quantity) {

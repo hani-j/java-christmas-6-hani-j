@@ -7,6 +7,14 @@ import camp.nextstep.edu.missionutils.Console;
 
 public class InputView {
 
+    private InputView() {
+
+    }
+
+    public static InputView create() {
+        return new InputView();
+    }
+
     public final String inputDay() {
         System.out.println(REQUEST_DAY.getMessage());
         return Console.readLine();

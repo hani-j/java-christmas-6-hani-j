@@ -15,12 +15,12 @@ import org.junit.jupiter.api.Test;
 
 public class OrderHistoryTest {
 
-    private Menu menu = new Menu();
+    private Menu menu = Menu.create();
     private OrderHistory orderHistory;
 
     @BeforeEach
     void setTp() {
-        orderHistory = new OrderHistory();
+        orderHistory = OrderHistory.create();
     }
 
 

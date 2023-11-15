@@ -13,24 +13,17 @@ import christmas.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
-        final ChristmasEvent christmasEvent = new ChristmasEvent(
-                new DiscountDetails(),
-                new DiscountCalculator(),
-                new BadgeCalculator()
-        );
+        final ChristmasEvent christmasEvent = ChristmasEvent.of(
+                DiscountDetails.create(), DiscountCalculator.create(), BadgeCalculator.create());
 
-        final EventService eventService = new EventService(
-                new Menu(),
-                new OrderHistory(),
-                christmasEvent
-        );
+        final EventService eventService = EventService.of(
+                Menu.create(), OrderHistory.create(), christmasEvent);
 
-        final EventController eventController = new EventController(
-                new InputView(),
-                new OutputView(),
-                eventService
-        );
+        final EventController eventController = EventController.of(
+                InputView.create(), OutputView.create(), eventService);
 
         eventController.run();
     }
+
+
 }

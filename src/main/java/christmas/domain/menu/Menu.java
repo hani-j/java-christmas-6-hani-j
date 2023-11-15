@@ -8,9 +8,13 @@ import java.util.Map;
 public class Menu {
     private final Map<String, Product> products;
 
-    public Menu() {
+    private Menu() {
         this.products = new HashMap<>();
         initMenu();
+    }
+
+    public static Menu create() {
+        return new Menu();
     }
 
     private void initMenu() {

@@ -11,8 +11,12 @@ import java.util.Map;
 public class DiscountDetails {
     private final Map<String, Integer> discountDetails;
 
-    public DiscountDetails() {
+    private DiscountDetails() {
         this.discountDetails = new HashMap<>();
+    }
+
+    public static DiscountDetails create() {
+        return new DiscountDetails();
     }
 
     public void addDiscount(final EventMessage eventMessage, final int discountAmount) {

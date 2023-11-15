@@ -11,6 +11,14 @@ import christmas.domain.menu.Menu;
 
 public class DiscountCalculator {
 
+    private DiscountCalculator() {
+        
+    }
+
+    public static DiscountCalculator create() {
+        return new DiscountCalculator();
+    }
+
     public final int calculateDDayDiscount(final int day) {
         return D_DAY_DISCOUNT_AMOUNT.getValue() +
                 (day - D_DAY_DIFFERENCE.getValue()) * D_DAY_ADD_AMOUNT.getValue();

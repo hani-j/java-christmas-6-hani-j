@@ -11,10 +11,15 @@ public class EventController {
     private final OutputView outputView;
     private final EventService eventService;
 
-    public EventController(final InputView inputView, final OutputView outputView, final EventService eventService) {
+    private EventController(final InputView inputView, final OutputView outputView, final EventService eventService) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.eventService = eventService;
+    }
+
+    public static EventController of(final InputView inputView, final OutputView outputView,
+                                     final EventService eventService) {
+        return new EventController(inputView, outputView, eventService);
     }
 
     public void run() {

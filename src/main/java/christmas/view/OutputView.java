@@ -20,6 +20,14 @@ import java.util.Map;
 
 public class OutputView {
 
+    private OutputView() {
+        
+    }
+
+    public static OutputView create() {
+        return new OutputView();
+    }
+
     public void printWelcomeMessage() {
         System.out.println(WELCOME_MESSAGE.getMessage());
     }

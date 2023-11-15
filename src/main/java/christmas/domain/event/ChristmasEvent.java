@@ -26,11 +26,16 @@ public class ChristmasEvent {
     private final DiscountCalculator discountCalculator;
     private final BadgeCalculator badgeCalculator;
 
-    public ChristmasEvent(final DiscountDetails discountDetails, final DiscountCalculator discountCalculator,
-                          final BadgeCalculator badgeCalculator) {
+    private ChristmasEvent(final DiscountDetails discountDetails, final DiscountCalculator discountCalculator,
+                           final BadgeCalculator badgeCalculator) {
         this.discountDetails = discountDetails;
         this.discountCalculator = discountCalculator;
         this.badgeCalculator = badgeCalculator;
+    }
+
+    public static ChristmasEvent of(final DiscountDetails discountDetails, final DiscountCalculator discountCalculator,
+                                    final BadgeCalculator badgeCalculator) {
+        return new ChristmasEvent(discountDetails, discountCalculator, badgeCalculator);
     }
 
     public void applyDiscount(final Menu menu, final OrderHistory orderHistory, final int day) {

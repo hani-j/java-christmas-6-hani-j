@@ -78,7 +78,7 @@ public class ValidatorTest {
     @ValueSource(strings = {"제로콜라-1", "제로콜라-2,레드와인-1,샴페인-1"})
     void validateOnlyBeverage(String order) {
         // given
-        Menu menu = new Menu();
+        Menu menu = Menu.create();
 
         // when & then
         assertThatThrownBy(() -> validator.validateOnlyBeverage(order))

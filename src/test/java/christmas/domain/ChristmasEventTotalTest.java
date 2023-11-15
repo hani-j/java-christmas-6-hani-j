@@ -26,12 +26,10 @@ public class ChristmasEventTotalTest {
 
     @BeforeEach
     void setUp() {
-        menu = new Menu();
-        orderHistory = new OrderHistory();
-        christmasEvent = new ChristmasEvent(
-                new DiscountDetails(),
-                new DiscountCalculator(),
-                new BadgeCalculator());
+        menu = Menu.create();
+        orderHistory = OrderHistory.create();
+        christmasEvent = ChristmasEvent.of(
+                DiscountDetails.create(), DiscountCalculator.create(), BadgeCalculator.create());
     }
 
     @DisplayName("평일 날짜가 들어왔을 때 총 혜택 금액을 반환한다.")
