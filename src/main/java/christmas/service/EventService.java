@@ -15,13 +15,14 @@ public class EventService {
     private final OrderHistory orderHistory;
     private final ChristmasEvent christmasEvent;
 
-    private EventService(final Menu menu, final OrderHistory orderHistory, ChristmasEvent christmasEvent) {
+    private EventService(final Menu menu, final OrderHistory orderHistory, final ChristmasEvent christmasEvent) {
         this.menu = menu;
         this.orderHistory = orderHistory;
         this.christmasEvent = christmasEvent;
     }
 
-    public static EventService of(final Menu menu, final OrderHistory orderHistory, ChristmasEvent christmasEvent) {
+    public static EventService of(final Menu menu, final OrderHistory orderHistory,
+                                  final ChristmasEvent christmasEvent) {
         return new EventService(menu, orderHistory, christmasEvent);
     }
 

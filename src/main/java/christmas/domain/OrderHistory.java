@@ -33,7 +33,7 @@ public class OrderHistory {
         }
     }
 
-    public final Integer getAllQuantity() {
+    public final int getAllQuantity() {
         return orders.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
